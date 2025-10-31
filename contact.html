@@ -10,6 +10,9 @@
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <link rel="stylesheet" href="./assets/css/styles.css" />
   <style>
+    /* Reveal animation */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
     /* Textured hero with subtle noise + gradient */
     .hero-tex { position:relative; overflow:hidden; }
     .hero-tex::before{ content:""; position:absolute; inset:0; background: radial-gradient(1200px 400px at 10% -20%, rgba(14,165,233,.25), transparent), radial-gradient(1000px 400px at 90% 120%, rgba(244,63,94,.18), transparent); pointer-events:none; }
@@ -131,6 +134,31 @@
       </div>
     </section>
 
+    <!-- Let's Connect With Us -->
+    <section class="py-16 bg-gradient-to-br from-sky-50 to-pink-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl font-bold text-gray-900 reveal">Let's Connect With Us</h2>
+        <p class="mt-4 text-lg text-gray-600 reveal" style="transition-delay:.05s">Join our fashion community and stay updated with latest trends</p>
+        <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="p-6 bg-white rounded-xl shadow-sm border hover:shadow-lg transition-all duration-300 reveal" style="transition-delay:.1s">
+            <i data-lucide="mail-plus" class="mx-auto mb-4 text-sky-600"></i>
+            <h3 class="text-xl font-semibold">Newsletter</h3>
+            <p class="mt-2 text-gray-600">Get style tips and exclusive offers directly in your inbox</p>
+          </div>
+          <div class="p-6 bg-white rounded-xl shadow-sm border hover:shadow-lg transition-all duration-300 reveal" style="transition-delay:.15s">
+            <i data-lucide="users" class="mx-auto mb-4 text-pink-600"></i>
+            <h3 class="text-xl font-semibold">Social Media</h3>
+            <p class="mt-2 text-gray-600">Follow us for daily inspiration and style updates</p>
+          </div>
+          <div class="p-6 bg-white rounded-xl shadow-sm border hover:shadow-lg transition-all duration-300 reveal" style="transition-delay:.2s">
+            <i data-lucide="star" class="mx-auto mb-4 text-yellow-500"></i>
+            <h3 class="text-xl font-semibold">VIP Community</h3>
+            <p class="mt-2 text-gray-600">Join our VIP club for exclusive perks and early access</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Brand story teaser strip -->
     <section class="py-6">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -188,6 +216,21 @@
 
   <script src="./assets/js/main.js"></script>
   <script>
+    // Reveal animation
+    function reveal() {
+      var reveals = document.querySelectorAll('.reveal');
+      reveals.forEach(function(el) {
+        var windowHeight = window.innerHeight;
+        var elementTop = el.getBoundingClientRect().top;
+        var elementVisible = 150;
+        if (elementTop < windowHeight - elementVisible) {
+          el.classList.add('active');
+        }
+      });
+    }
+    window.addEventListener('scroll', reveal);
+    window.addEventListener('load', reveal);
+    
     // Magnetic button effect for Send
     (function(){
       var btn = document.getElementById('send-btn'); if(!btn) return; var inner = btn.querySelector('.inner');
