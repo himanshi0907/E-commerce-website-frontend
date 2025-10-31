@@ -1,0 +1,117 @@
+/* Custom styles for The Outfitwaves */
+html{scroll-behavior:smooth}
+
+/* Hero helpers */
+.hero-card {
+    box-shadow: 0 20px 40px rgba(236, 72, 153, .2), 0 8px 24px rgba(0, 0, 0, .08)
+}
+
+.soft-border {
+    border: 1px solid rgba(0, 0, 0, .06)
+}
+
+/* Feature icons hover accent */
+.feature-badge {
+    transition: transform .15s ease, box-shadow .2s ease
+}
+
+.feature-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 18px rgba(0, 0, 0, .08)
+}
+
+/* Product card hover */
+.group {
+    transition: transform .2s ease, box-shadow .2s ease
+}
+
+.group:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, .08)
+}
+
+.group:hover img {
+    transform: scale(1.04)
+}
+
+/* Scroll reveal */
+.reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .6s ease, transform .6s ease
+}
+
+.reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0)
+}
+
+/* Sticky header shadow on scroll */
+.sticky-shadow {
+    transition: box-shadow .2s ease, background-color .2s ease
+}
+
+.sticky-shadow.scrolled {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .06);
+    background-color: rgba(255, 255, 255, .85);
+    backdrop-filter: saturate(180%) blur(8px)
+}
+
+/* Header nav link underline hover */
+.nav-link {
+    position: relative
+}
+
+.nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    height: 2px;
+    background: linear-gradient(90deg, #ec4899, #f43f5e);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .2s ease
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    transform: scaleX(1)
+}
+
+/* Generic elevate buttons/CTAs */
+.btn-elevate {
+    transition: transform .15s ease, box-shadow .2s ease
+}
+
+.btn-elevate:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, .08)
+}
+
+.btn-elevate:active {
+    transform: translateY(0) scale(.99)
+}
+
+/* Brand blue hover utility */
+.hover-brand:hover {
+    background-color: #0284c7 !important;
+    color: #ffffff !important;
+    border-color: #0284c7 !important
+}
+
+/* Utilities fallbacks if Tailwind is not loaded for some reason */
+:root {
+    --tw-ring-color: rgba(0, 0, 0, .08)
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0ms !important;
+        scroll-behavior: auto !important
+    }
+}

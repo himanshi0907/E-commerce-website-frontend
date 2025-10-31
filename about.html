@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Outfitwaves - About</title>
+  <meta name="description" content="About The Outfitwaves" />
+  <link rel="icon" type="image/jpeg" href="./assets/logo.jpg" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+  <style>
+    @keyframes spin-slow {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes float-y {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-4px);
+      }
+    }
+
+    .ow-float {
+      animation: float-y 5s ease-in-out infinite;
+    }
+
+    @keyframes ow-fade-up {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes ow-underline {
+      from {
+        width: 0;
+      }
+
+      to {
+        width: 80%;
+      }
+    }
+
+    @keyframes ow-shimmer {
+      0% {
+        background-position: -100% 0;
+      }
+
+      100% {
+        background-position: 200% 0;
+      }
+    }
+
+    .ow-tagline {
+      position: relative;
+      display: inline-block;
+      opacity: 0;
+      animation: ow-fade-up 700ms ease-out forwards;
+    }
+
+    .ow-tagline::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -6px;
+      height: 2px;
+      width: 0;
+      background: linear-gradient(90deg, rgba(2, 132, 199, .15), rgba(2, 132, 199, 1), rgba(2, 132, 199, .15));
+      border-radius: 9999px;
+      animation: ow-underline 1200ms 300ms ease-out forwards, ow-shimmer 1500ms 1200ms linear infinite;
+      background-size: 200% 100%;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .ow-tagline {
+        opacity: 1;
+        animation: none;
+      }
+
+      .ow-tagline::after {
+        width: 80%;
+        animation: none;
+      }
+    }
+
+    @keyframes ow-img-in {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .ow-founder-img {
+      opacity: 0;
+      animation: ow-img-in 700ms 450ms ease-out forwards;
+    }
+
+    /* Micro-animations for icons */
+    @keyframes wiggle {
+
+      0%,
+      100% {
+        transform: rotate(0);
+      }
+
+      25% {
+        transform: rotate(-6deg);
+      }
+
+      75% {
+        transform: rotate(6deg);
+      }
+    }
+
+    @keyframes tick {
+
+      0%,
+      100% {
+        transform: rotate(0);
+      }
+
+      50% {
+        transform: rotate(12deg);
+      }
+    }
+
+    @keyframes bounceY {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-4px);
+      }
+    }
+
+    @keyframes slideX {
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      50% {
+        transform: translateX(4px);
+      }
+    }
+
+    .anim-wiggle {
+      animation: wiggle 1800ms ease-in-out infinite;
+    }
+
+    .anim-tick {
+      animation: tick 1600ms ease-in-out infinite;
+      transform-origin: 50% 10%;
+    }
+
+    .anim-bounce {
+      animation: bounceY 1600ms ease-in-out infinite;
+    }
+
+    .anim-slide {
+      animation: slideX 1600ms ease-in-out infinite;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .anim-wiggle,
+      .anim-tick,
+      .anim-bounce,
+      .anim-slide {
+        animation: none;
+      }
+    }
+
+    /* Team hover overlay */
+    .team-card img {
+      transition: transform .5s;
+    }
+
+    .team-card:hover img {
+      transform: scale(1.03);
+    }
+
+    .team-overlay {
+      position: absolute;
+      inset: 0;
+      transition: opacity .35s;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .overlay-strong {
+      background: linear-gradient(to top, rgba(0, 0, 0, .55), rgba(0, 0, 0, .3) 45%, transparent 70%);
+    }
+
+    .overlay-medium {
+      background: linear-gradient(to top, rgba(0, 0, 0, .45), rgba(0, 0, 0, .25) 40%, transparent 70%);
+    }
+
+    .overlay-light {
+      background: linear-gradient(to top, rgba(0, 0, 0, .35), rgba(0, 0, 0, .2) 35%, transparent 70%);
+    }
+
+    .team-card:hover .team-overlay {
+      opacity: 1;
+    }
+
+    /* Team animations */
+    @keyframes fade-in-up {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in-up {
+      animation: fade-in-up .6s ease-out both;
+    }
+
+    @keyframes title-pulse {
+      0%,
+      100% {
+        opacity: .95
+      }
+      50% {
+        opacity: 1
+      }
+    }
+
+    .team-title {
+      position: relative;
+      animation: title-pulse 3000ms ease-in-out infinite;
+    }
+
+    .team-title::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -6px;
+      width: 64px;
+      height: 3px;
+      border-radius: 9999px;
+      background: linear-gradient(90deg, #fda4af, #60a5fa);
+      opacity: .6;
+    }
+
+    /* Signature underline */
+    .sig-name {
+      font-family: 'Playfair Display', serif;
+      position: relative;
+      display: inline-block;
+    }
+
+    .sig-name::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      height: 2px;
+      width: 0;
+      background: linear-gradient(90deg, #0ea5e9, #1d4ed8);
+      border-radius: 9999px;
+      animation: sig-line 1200ms ease-out forwards;
+    }
+
+    @keyframes sig-line {
+      from {
+        width: 0
+      }
+      to {
+        width: 100%
+      }
+    }
+
+    /* Meet Himanshi animations */
+    @keyframes slide-in-left {
+      from {
+        opacity: 0;
+        transform: translateX(-16px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slide-in-right {
+      from {
+        opacity: 0;
+        transform: translateX(16px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes quote-pulse {
+      0%,
+      100% {
+        opacity: .9
+      }
+      50% {
+        opacity: 1
+      }
+    }
+
+    .reveal-left {
+      opacity: 0;
+      animation: slide-in-left 700ms ease-out forwards;
+    }
+
+    .reveal-right {
+      opacity: 0;
+      animation: slide-in-right 700ms ease-out forwards;
+    }
+
+    .quote-pulse {
+      animation: quote-pulse 3000ms ease-in-out infinite;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal-left,
+      .reveal-right,
+      .quote-pulse {
+        animation: none;
+        opacity: 1;
+      }
+    }
+
+    /* Modal animations */
+    @keyframes modal-in {
+      from {
+        opacity: 0;
+        transform: translateY(6px) scale(.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes para-in {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .modal-animate {
+      animation: modal-in 260ms ease-out forwards;
+    }
+
+    .story-para {
+      opacity: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .modal-animate {
+        animation: none;
+      }
+      .story-para {
+        opacity: 1;
+      }
+    }
+
+    /* Slide-in panel for founder modal */
+    #founder-panel {
+      transform: translateX(100%);
+      transition: transform .3s ease;
+    }
+
+    #founder-modal.open #founder-panel {
+      transform: translateX(0);
+    }
+  </style>
+</head>
+
+<body id="top" class="min-h-screen flex flex-col bg-white text-gray-900 scroll-smooth">
+  <!-- Header -->
+  <header class="border-b bg-white sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex h-16 items-center justify-between">
+        <a href="./index.html" class="flex items-center gap-2 font-semibold text-xl">
+          <img src="./assets/logo.jpg" alt="The Outfitwaves" class="h-12 w-12 rounded-full object-cover" />
+          <span>The Outfitwaves</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-6">
+          <a href="./index.html" class="nav-link hover:text-sky-600">Home</a>
+          <a href="./shop.html" class="nav-link hover:text-sky-600">Shop</a>
+          <a href="./about.html" class="nav-link hover:text-sky-600">About</a>
+          <a href="./blog.html" class="nav-link hover:text-sky-600">Blog</a>
+          <a href="./contact.html" class="nav-link hover:text-sky-600">Contact</a>
+        </nav>
+        <div class="flex items-center gap-3">
+          <button class="p-2 rounded hover:bg-gray-100" aria-label="Account"><i data-lucide="user"></i></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1">
+    <!-- Hero/About intro -->
+    <section class="relative overflow-hidden bg-gradient-to-b from-sky-600 to-sky-700 text-white">
+      <div class="pointer-events-none absolute -right-24 -top-24 w-80 h-80 rounded-full bg-sky-400/30 blur-3xl"
+        style="animation: spin-slow 28s linear infinite;"></div>
+      <div class="pointer-events-none absolute -left-24 -bottom-24 w-80 h-80 rounded-full bg-blue-300/20 blur-3xl"
+        style="animation: spin-slow 36s linear infinite reverse;"></div>
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h1 class="text-3xl md:text-4xl font-extrabold">About The Outfitwaves</h1>
+        <p class="mt-3 max-w-2xl text-sky-50">Timeless fashion for the modern era. We craft versatile, comfortable
+          pieces designed to elevate everyday style.</p>
+
+      </div>
+    </section>
+
+    <!-- Milestones Timeline -->
+    <section class="py-10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <p class="text-center"><span class="ow-tagline text-sky-700 italic">“We don’t just make clothes, we craft confidence.”</span></p>
+        <h3 class="mt-6 text-xl font-semibold text-slate-800">Milestones</h3>
+        <div class="mt-4 overflow-x-auto">
+          <ol class="flex items-stretch gap-6 min-w-[720px]">
+            <li class="shrink-0 p-4 rounded-xl border bg-white w-56"><p class="text-sm text-gray-600">2019</p><p class="font-medium">Brand launched</p></li>
+            <li class="shrink-0 p-4 rounded-xl border bg-white w-56"><p class="text-sm text-gray-600">2020</p><p class="font-medium">First collection</p></li>
+            <li class="shrink-0 p-4 rounded-xl border bg-white w-56"><p class="text-sm text-gray-600">2022</p><p class="font-medium">10K customers</p></li>
+            <li class="shrink-0 p-4 rounded-xl border bg-white w-56"><p class="text-sm text-gray-600">2024</p><p class="font-medium">50K customers</p></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Meet Himanshi -->
+    <section class="py-14" style="background:#f7f2ee;">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-10 items-center">
+        <div class="relative rounded-2xl overflow-hidden border bg-white shadow-sm reveal-left">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/25 via-black/0 to-transparent pointer-events-none"></div>
+          <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1400&q=80" alt="Himanshi portrait" referrerpolicy="no-referrer" class="w-full h-[28rem] md:h-[34rem] object-cover transition-transform duration-700 will-change-transform hover:scale-[1.03]" />
+        </div>
+        <div class="reveal-right">
+          <p class="uppercase tracking-wide text-sm text-rose-600 font-semibold">Meet the Founder</p>
+          <h2 class="mt-2 text-3xl font-semibold sig-name">Himanshi Rabari</h2>
+          <p class="mt-4 text-gray-800 leading-relaxed" style="font-family:'Poppins',sans-serif;">
+            I started The Outfitwaves to blend comfort with confidence. Every piece is designed to move with you—simple, timeless, and crafted with care.
+          </p>
+          <p class="mt-3 italic text-rose-700 quote-pulse">“Thank you for being part of our journey.”</p>
+        </div>
+      </div>
+    </section>
+
+    
+
+    <!-- Story and values -->
+    <section class="py-10">
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-8">
+        <div
+          class="hidden md:block absolute inset-y-0 left-1/2 -translate-x-1/2 w-px bg-gradient-to-b from-transparent via-sky-200 to-transparent">
+        </div>
+        <div id="story"
+          class="relative overflow-hidden border-l-4 border-sky-200 rounded-lg bg-white/60 p-5 shadow-sm scroll-mt-24">
+          <div class="absolute inset-0 bg-cover bg-center opacity-10"
+            style="background-image:url('https://images.unsplash.com/photo-1520975682031-6f61d7b7a0f5?auto=format&fit=crop&w=1200&q=60');">
+          </div>
+          <div class="relative space-y-4">
+            <h2 class="text-xl font-semibold">Our Story</h2>
+            <div class="h-1 w-12 bg-sky-600 rounded"></div>
+            <p class="text-gray-700">Founded with a passion for elevated essentials, The Outfitwaves blends contemporary
+              design with durable craftsmanship. We believe great style starts with comfort and confidence.</p>
+            <p class="text-gray-700">From everyday basics to statement pieces, our collections focus on quality fabrics,
+              thoughtful fits, and effortless versatility.</p>
+          </div>
+        </div>
+        <div id="values"
+          class="space-y-4 border-l-4 border-sky-200 rounded-lg bg-white/60 p-5 shadow-sm md:border-l md:border-sky-100 md:pl-8 scroll-mt-24">
+          <h2 class="text-xl font-semibold">What We Value</h2>
+          <div class="h-1 w-12 bg-sky-600 rounded"></div>
+          <div class="space-y-3">
+            <div class="flex items-start gap-3 p-2 rounded-md hover:bg-sky-50">
+              <i data-lucide="sprout" class="w-5 h-5 text-sky-600 anim-wiggle"></i>
+              <p class="text-gray-700">Quality materials and responsible sourcing</p>
+            </div>
+            <div class="flex items-start gap-3 p-2 rounded-md hover:bg-sky-50">
+              <i data-lucide="hourglass" class="w-5 h-5 text-sky-600 anim-tick"></i>
+              <p class="text-gray-700">Timeless design over fast trends</p>
+            </div>
+            <div class="flex items-start gap-3 p-2 rounded-md hover:bg-sky-50">
+              <i data-lucide="shirt" class="w-5 h-5 text-sky-600 anim-bounce"></i>
+              <p class="text-gray-700">Comfort-first fits for real life</p>
+            </div>
+            <div class="flex items-start gap-3 p-2 rounded-md hover:bg-sky-50">
+              <i data-lucide="badge-check" class="w-5 h-5 text-sky-600 anim-slide"></i>
+              <p class="text-gray-700">Delightful service: fast shipping, easy returns</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What We Do -->
+    <section class="py-12 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold text-center">What We Do</h2>
+        <p class="mt-2 text-center text-gray-600">From design to doorstep, we obsess over every detail.</p>
+        <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div
+            class="relative p-6 bg-white border rounded-xl shadow-sm hover:shadow-lg hover:ring-1 ring-sky-100 transition"
+            data-reveal>
+            <i data-lucide="scissors" class="w-6 h-6 text-pink-600 anim-wiggle"></i>
+            <h3 class="mt-3 font-semibold">In-house Design</h3>
+            <p class="mt-1 text-sm text-gray-600">Original styles crafted by our design studio.</p>
+          </div>
+          <div
+            class="relative p-6 bg-white border rounded-xl shadow-sm hover:shadow-lg hover:ring-1 ring-sky-100 transition"
+            data-reveal>
+            <i data-lucide="package" class="w-6 h-6 text-pink-600 anim-slide" style="animation-delay: .2s"></i>
+            <h3 class="mt-3 font-semibold">Quality Materials</h3>
+            <p class="mt-1 text-sm text-gray-600">Carefully sourced fabrics and trims.</p>
+          </div>
+          <div
+            class="relative p-6 bg-white border rounded-xl shadow-sm hover:shadow-lg hover:ring-1 ring-sky-100 transition"
+            data-reveal>
+            <i data-lucide="truck" class="w-6 h-6 text-pink-600 anim-bounce" style="animation-delay: .4s"></i>
+            <h3 class="mt-3 font-semibold">Fast Shipping</h3>
+            <p class="mt-1 text-sm text-gray-600">Reliable delivery to your door.</p>
+          </div>
+          <div
+            class="relative p-6 bg-white border rounded-xl shadow-sm hover:shadow-lg hover:ring-1 ring-sky-100 transition"
+            data-reveal>
+            <i data-lucide="refresh-ccw" class="w-6 h-6 text-pink-600 anim-wiggle" style="animation-delay: .6s"></i>
+            <h3 class="mt-3 font-semibold">Easy Returns</h3>
+            <p class="mt-1 text-sm text-gray-600">Stress-free 7-day return policy.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats/Highlights -->
+    <section class="py-10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div class="p-6 bg-white border rounded-xl shadow-sm hover:shadow-md hover:ring-1 ring-sky-100 transition"
+          data-reveal>
+          <div class="text-3xl font-bold" data-count="50000">0</div>
+          <div class="text-sm text-gray-600">Happy Customers</div>
+        </div>
+        <div class="p-6 bg-white border rounded-xl shadow-sm hover:shadow-md hover:ring-1 ring-sky-100 transition"
+          data-reveal>
+          <div class="text-3xl font-bold" data-count="500">0</div>
+          <div class="text-sm text-gray-600">Products</div>
+        </div>
+        <div class="p-6 bg-white border rounded-xl shadow-sm hover:shadow-md hover:ring-1 ring-sky-100 transition"
+          data-reveal>
+          <div class="text-3xl font-bold" data-count-float="4.8">0</div>
+          <div class="text-sm text-gray-600">Average Rating</div>
+        </div>
+        <div class="p-6 bg-white border rounded-xl shadow-sm hover:shadow-md hover:ring-1 ring-sky-100 transition"
+          data-reveal>
+          <div class="text-3xl font-bold" data-count="24">0</div>
+          <div class="text-sm text-gray-600">Support</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Team -->
+    <section id="team" class="py-12 bg-gray-50 scroll-mt-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold text-center">Our Team</h2>
+        <p class="mt-2 text-center text-gray-600">Passionate people building products you love.</p>
+        <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div
+            class="team-card relative bg-white border border-rose-300 rounded-xl overflow-hidden text-center shadow-sm hover:shadow-lg transition will-change-transform"
+            data-tilt data-name="Daxita Patel" data-role="Design Lead"
+            data-image="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80"
+            data-bio="Designing pieces that feel as good as they look—thoughtful details, timeless silhouettes.">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80"
+              class="w-full h-[21.75rem] object-cover object-center" alt="Team member" />
+            <div class="team-overlay overlay-light sm:opacity-0 opacity-100 px-3 py-3">
+              <p class="flex items-center gap-2 text-white/95 text-sm font-medium"><i data-lucide="message-circle"
+                  class="w-4 h-4"></i><span>“Design is empathy made visible.”</span></p>
+            </div>
+            <div class="p-3">
+              <p class="font-semibold">Daxita Patel</p>
+              <p class="text-sm text-gray-600">Design Lead</p>
+            </div>
+          </div>
+          <div
+            class="team-card relative bg-white border border-violet-300 rounded-xl overflow-hidden text-center shadow-sm hover:shadow-lg transition will-change-transform"
+            data-tilt data-name="Ayesha Khan" data-role="Brand Manager"
+            data-image="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=80"
+            data-bio="Championing a brand rooted in comfort, confidence, and care—every interaction matters.">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=80"
+              class="w-full h-[21.75rem] object-cover object-center" alt="Team member" />
+            <div class="team-overlay overlay-medium sm:opacity-0 opacity-100 p-6 text-lg text-white/95">
+              <p class="flex items-center gap-2 font-medium"><i data-lucide="message-circle"
+                  class="w-6 h-6"></i><span>“We don’t sell clothes—we share confidence.”</span></p>
+            </div>
+            <div class="p-6">
+              <p class="font-semibold text-lg">Ayesha Khan</p>
+              <p class="text-base text-gray-600">Brand Manager</p>
+            </div>
+          </div>
+          <div
+            class="team-card relative bg-white border border-sky-300 rounded-xl overflow-hidden text-center shadow-sm hover:shadow-lg transition will-change-transform"
+            data-tilt data-name="Arjun Mehta" data-role="Operations"
+            data-image="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80"
+            data-bio="From supply chain to doorstep—making reliable feel effortless, every day.">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80"
+              class="w-full h-[21.75rem] object-cover object-center" alt="Team member" />
+            <div class="team-overlay overlay-strong sm:opacity-0 opacity-100 px-3 py-3">
+              <p class="flex items-center gap-2 text-white/95 text-sm font-medium"><i data-lucide="message-circle"
+                  class="w-4 h-4"></i><span>“Ops makes magic reliable.”</span></p>
+            </div>
+            <div class="p-3">
+              <p class="font-semibold">Arjun Mehta</p>
+              <p class="text-sm text-gray-600">Operations</p>
+            </div>
+          </div>
+          <div
+            class="team-card relative bg-white border border-emerald-300 rounded-xl overflow-hidden text-center shadow-sm hover:shadow-lg transition will-change-transform"
+            data-tilt data-name="Kunal Shah" data-role="Customer Success"
+            data-image="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&q=80"
+            data-bio="Listening first, then delighting—every customer, every moment, crafted with care.">
+            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&q=80"
+              class="w-full h-[21.75rem] object-cover object-center" alt="Team member" />
+            <div class="team-overlay overlay-medium sm:opacity-0 opacity-100 px-3 py-3">
+              <p class="flex items-center gap-2 text-white/95 text-sm font-medium"><i data-lucide="message-circle"
+                  class="w-4 h-4"></i><span>“Every customer, every moment—crafted with care.”</span></p>
+            </div>
+            <div class="p-3">
+              <p class="font-semibold">Kunal Shah</p>
+              <p class="text-sm text-gray-600">Customer Success</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="h-px bg-gradient-to-r from-transparent via-black/10 to-transparent"></div>
+
+  <!-- Footer -->
+  <footer class="border-t bg-[#f7f2ee]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid md:grid-cols-3 gap-8">
+        <div>
+          <div class="flex items-center gap-2 font-semibold text-lg">
+            <img src="./assets/logo.jpg" alt="The Outfitwaves" class="h-14 w-14 rounded-full object-cover" />
+            <span>The Outfitwaves</span>
+          </div>
+          <p class="mt-3 text-sm text-gray-600">Timeless fashion for the modern era. Crafted for comfort, designed for
+            confidence.</p>
+          <p class="mt-2 text-sm text-gray-600">Free shipping, easy returns, and secure checkout.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold">Explore</h4>
+          <ul class="mt-3 space-y-2 text-sm text-gray-700">
+            <li><a class="hover:text-sky-600" href="./shop.html">Shop</a></li>
+            <li><a class="hover:text-sky-600" href="./about.html">About</a></li>
+            <li><a class="hover:text-sky-600" href="./blog.html">Blog</a></li>
+            <li><a class="hover:text-sky-600" href="./contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold">Store Info</h4>
+          <ul class="mt-3 space-y-2 text-sm text-gray-700">
+            <li>Support: support@outfitwaves.example</li>
+            <li>Hours: Mon–Sat, 9am–7pm</li>
+            <li>Location: Mumbai, IN</li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-8 pt-8 border-t text-sm text-gray-600 flex items-center justify-between">
+        <p>© <span id="year"></span> The Outfitwaves. All rights reserved.</p>
+        <div class="flex items-center gap-4">
+          <a href="#" class="hover:text-pink-600">Privacy</a>
+          <a href="#" class="hover:text-pink-600">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./assets/js/main.js"></script>
+  <script>
+    (function () {
+      var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      // Animated counters
+      var nums = Array.from(document.querySelectorAll('[data-count], [data-count-float]'));
+      if (nums.length) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (!en.isIntersecting) return; var el = en.target; io.unobserve(el);
+            var isFloat = el.hasAttribute('data-count-float');
+            var target = isFloat ? parseFloat(el.getAttribute('data-count-float')) : parseInt(el.getAttribute('data-count') || '0', 10);
+            if (prefersReduced) { el.textContent = isFloat ? target.toFixed(1) : target.toLocaleString('en-IN'); return; }
+            var start = performance.now(); var dur = 1800;
+            function tick(now) {
+              var t = Math.min(1, (now - start) / dur);
+              var eased = t < .5 ? 2 * t * t : -1 + (4 - 2 * t) * t; // easeInOutQuad
+              var val = target * eased;
+              el.textContent = isFloat ? val.toFixed(1) : Math.round(val).toLocaleString('en-IN');
+              if (t < 1) requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+          });
+        }, { threshold: 0.3 });
+        nums.forEach(function (n) { io.observe(n); });
+      }
+      // 3D tilt on hover
+      if (!prefersReduced) {
+        Array.from(document.querySelectorAll('[data-tilt]')).forEach(function (card) {
+          var max = 4; // deg
+          var shadowOn = card.classList.contains('hover:shadow-lg');
+          function handle(ev) {
+            var r = card.getBoundingClientRect();
+            var px = (ev.clientX - r.left) / r.width; var py = (ev.clientY - r.top) / r.height;
+            var rx = (py - 0.5) * -2 * max; var ry = (px - 0.5) * 2 * max;
+            card.style.transform = 'perspective(800px) rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg)';
+          }
+          function reset() { card.style.transform = 'perspective(800px) rotateX(0) rotateY(0)'; }
+          card.addEventListener('mousemove', handle);
+          card.addEventListener('mouseleave', reset);
+        });
+      }
+      // Sticky subnav highlighting
+      (function () {
+        var links = Array.from(document.querySelectorAll('#about-subnav .subnav-link'));
+        var map = { story: document.getElementById('story'), values: document.getElementById('values'), team: document.getElementById('team') };
+        if (!links.length) return;
+        var byId = {}; links.forEach(function (a) { var id = a.getAttribute('href').replace('#', ''); byId[id] = a; });
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) { if (!en.isIntersecting) return; var id = en.target.id; links.forEach(function (a) { a.classList.remove('text-sky-700', 'font-semibold', 'bg-sky-50'); }); var active = byId[id]; if (active) { active.classList.add('text-sky-700', 'font-semibold', 'bg-sky-50'); } });
+        }, { rootMargin: '-40% 0px -50% 0px', threshold: 0.01 });
+        Object.values(map).forEach(function (sec) { if (sec) io.observe(sec); });
+      })();
+
+      // Why I Started modal wiring
+      (function(){
+        var btn = document.getElementById('why-btn');
+        var modal = document.getElementById('founder-modal');
+        if(!btn || !modal) return;
+        var overlay = document.getElementById('founder-overlay');
+        var closeBtn = document.getElementById('founder-close');
+        var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        function open(){
+          // show and slide in
+          modal.classList.remove('hidden');
+          modal.classList.add('open');
+          // lock background scroll
+          document.body.style.overflow = 'hidden';
+          // restart any entrance anims for inner elements
+          var box = modal.querySelector('.modal-animate');
+          if(box){ box.classList.remove('modal-animate'); void box.offsetWidth; box.classList.add('modal-animate'); }
+          // stagger paragraphs
+          var paras = modal.querySelectorAll('.story-para');
+          var delay = 120;
+          paras.forEach(function(p, i){
+            if(prefersReduced){ p.style.opacity = 1; return; }
+            p.style.animation = 'para-in 380ms '+(i*delay)+'ms ease-out forwards';
+          });
+          if(window.lucide) window.lucide.createIcons();
+        }
+        function close(){
+          // reset paras
+          var paras = modal.querySelectorAll('.story-para');
+          paras.forEach(function(p){ p.style.animation = ''; p.style.opacity = prefersReduced?1:0; });
+          modal.classList.remove('open');
+          // wait for slide-out then hide and unlock scroll
+          setTimeout(function(){ modal.classList.add('hidden'); document.body.style.overflow=''; }, 300);
+        }
+        btn.addEventListener('click', open);
+        if(overlay) overlay.addEventListener('click', close);
+        if(closeBtn) closeBtn.addEventListener('click', close);
+        document.addEventListener('keydown', function(e){ if(e.key==='Escape' && !modal.classList.contains('hidden')) close(); });
+      })();
+
+      // Testimonials auto-rotate (5s, pause on hover)
+      (function(){
+        var wrap = document.getElementById('t-wrap'); if(!wrap) return;
+        var items = Array.from(wrap.querySelectorAll('.t-item')); if(items.length<2) return;
+        var i = 0, timer = null, hovering = false, dur = 5000;
+        function show(n){ items.forEach(function(el, idx){ if(idx===n){ el.classList.remove('hidden'); el.style.opacity=1; } else { el.classList.add('hidden'); el.style.opacity=0; } }); }
+        function next(){ i = (i+1)%items.length; show(i); }
+        function start(){ if(timer) return; timer = setInterval(function(){ if(!hovering) next(); }, dur); }
+        function stop(){ if(timer){ clearInterval(timer); timer=null; } }
+        wrap.addEventListener('mouseenter', function(){ hovering=true; });
+        wrap.addEventListener('mouseleave', function(){ hovering=false; });
+        show(0); start();
+      })();
+    })();
+  </script>
+</body>
+
+</html>

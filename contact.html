@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Outfitwaves - Contact</title>
+  <meta name="description" content="Contact The Outfitwaves" />
+  <link rel="icon" type="image/jpeg" href="./assets/logo.jpg" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+  <style>
+    /* Textured hero with subtle noise + gradient */
+    .hero-tex { position:relative; overflow:hidden; }
+    .hero-tex::before{ content:""; position:absolute; inset:0; background: radial-gradient(1200px 400px at 10% -20%, rgba(14,165,233,.25), transparent), radial-gradient(1000px 400px at 90% 120%, rgba(244,63,94,.18), transparent); pointer-events:none; }
+    .hero-tex::after{ content:""; position:absolute; inset:-50%; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140" viewBox="0 0 140 140"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/></filter><rect width="140" height="140" filter="url(%23n)" opacity="0.03"/></svg>'); opacity:.8; pointer-events:none; }
+    /* Magnetic button */
+    .magnet { position:relative; overflow:hidden; transform: translateZ(0); }
+    .magnet .inner { display:inline-flex; align-items:center; gap:.5rem; transition: transform .15s ease; }
+    /* Parallax layer */
+    .hero-par{ position:absolute; inset:-10% -10% auto -10%; height:120%; background: radial-gradient(600px 240px at 10% 0%, rgba(14,165,233,.25), transparent), radial-gradient(520px 240px at 90% 100%, rgba(244,63,94,.22), transparent); will-change: transform; pointer-events:none; }
+    /* Focus glow for inputs */
+    .glow:focus{ outline: none; box-shadow: 0 0 0 3px rgba(14,165,233,.25), 0 6px 18px rgba(2,132,199,.15); border-color:#7dd3fc; }
+    /* Toast */
+    #toast{ position:fixed; right:1rem; top:1rem; z-index:60; background:#111827; color:#fff; padding:.75rem 1rem; border-radius:.75rem; box-shadow:0 12px 30px rgba(0,0,0,.2); transform: translateY(-10px); opacity:0; pointer-events:none; }
+    #toast.show{ opacity:1; transform: translateY(0); transition: opacity .25s ease, transform .25s ease; }
+    /* Floating labels + icons */
+    .fl-wrap{ position:relative; }
+    .fl-icon{ position:absolute; left:.65rem; top:50%; transform:translateY(-50%); color:#64748b; }
+    .fl-input{ padding-left:2.1rem; }
+    .fl-label{ position:absolute; left:2.1rem; top:.9rem; color:#64748b; pointer-events:none; transition: all .15s ease; background:white; padding:0 .25rem; }
+    .fl-wrap.filled .fl-label, .fl-input:focus + .fl-label{ transform: translateY(-1.35rem) scale(.9); color:#0ea5e9; }
+    /* Typing pulse */
+    @keyframes tp { 0%,100%{ box-shadow: 0 0 0 0 rgba(14,165,233,.0);} 50%{ box-shadow: 0 0 0 3px rgba(14,165,233,.20);} }
+    .typing{ animation: tp .9s ease; }
+    /* Error shake */
+    @keyframes shake { 10%, 90% { transform: translateX(-2px);} 20%, 80% {transform: translateX(4px);} 30%, 50%, 70% { transform: translateX(-6px);} 40%, 60% { transform: translateX(6px);} }
+    .shake{ animation: shake .38s; border-color:#ef4444 !important; }
+    /* Tile hover glow */
+    .tile:hover{ box-shadow: 0 12px 28px rgba(2,132,199,.15); border-color:#bae6fd; }
+    /* Chat bubble */
+    #chat { position:fixed; right:1rem; bottom:1rem; z-index:60; }
+    #chat button{ box-shadow:0 10px 24px rgba(0,0,0,.18); }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-white text-gray-900">
+  <!-- Header -->
+  <header class="border-b bg-white sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex h-16 items-center justify-between">
+        <a href="./index.html" class="flex items-center gap-2 font-semibold text-xl">
+          <img src="./assets/logo.jpg" alt="The Outfitwaves" class="h-12 w-12 rounded-full object-cover" />
+          <span>The Outfitwaves</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-6">
+          <a href="./index.html" class="hover:text-sky-600">Home</a>
+          <a href="./shop.html" class="hover:text-sky-600">Shop</a>
+          <a href="./about.html" class="hover:text-sky-600">About</a>
+          <a href="./blog.html" class="hover:text-sky-600">Blog</a>
+          <a href="./contact.html" class="text-sky-600 font-medium">Contact</a>
+        </nav>
+        <div class="flex items-center gap-3">
+          <button class="p-2 rounded hover:bg-gray-100" aria-label="Account"><i data-lucide="user"></i></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1">
+    <!-- Page header -->
+    <section class="bg-gradient-to-b from-gray-100 to-white hero-tex">
+      <div class="hero-par" id="hero-par"></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <p class="text-sm text-sky-700 font-medium reveal">Confidence, crafted for you</p>
+        <h1 class="mt-1 text-3xl md:text-4xl font-extrabold reveal">Talk to The Outfitwaves</h1>
+        <p class="mt-2 text-gray-700 max-w-2xl reveal" style="transition-delay:.05s">Fit advice, order help, or styling ideas—we’re one message away.</p>
+      </div>
+    </section>
+
+    <!-- Contact form + info -->
+    <section class="py-10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-3 gap-8">
+        <form class="md:col-span-2 border rounded-xl bg-white p-6 space-y-4 reveal" id="contact-form">
+          <div class="fl-wrap">
+            <i class="fl-icon" data-lucide="user"></i>
+            <input id="f-name" required class="fl-input w-full px-3 py-2 border rounded-md glow" />
+            <span class="fl-label">Name</span>
+          </div>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div class="fl-wrap">
+              <i class="fl-icon" data-lucide="mail"></i>
+              <input id="f-email" required type="email" class="fl-input w-full px-3 py-2 border rounded-md glow" />
+              <span class="fl-label">Email</span>
+            </div>
+            <div class="fl-wrap">
+              <i class="fl-icon" data-lucide="pen-line"></i>
+              <input id="f-subj" class="fl-input w-full px-3 py-2 border rounded-md glow" />
+              <span class="fl-label">Subject</span>
+            </div>
+          </div>
+          <div class="fl-wrap">
+            <i class="fl-icon" data-lucide="message-square"></i>
+            <textarea id="f-msg" required rows="5" class="fl-input w-full px-3 py-2 border rounded-md glow"></textarea>
+            <span class="fl-label">Message</span>
+          </div>
+          <button id="send-btn" class="magnet px-5 py-2 rounded-md text-white bg-pink-600 hover:bg-pink-700">
+            <span class="inner"><i data-lucide="send"></i> Send Message</span>
+          </button>
+          <p class="text-sm text-gray-600">Alternatively, email us at support@outfitwaves.example</p>
+        </form>
+
+        <aside class="md:col-span-1 space-y-4 reveal" style="transition-delay:.08s">
+          <div class="border rounded-xl bg-white p-6">
+            <h2 class="font-semibold">Store Info</h2>
+            <ul class="mt-3 space-y-2 text-sm text-gray-700">
+              <li class="flex items-center gap-2"><i data-lucide="mail"></i><span>support@outfitwaves.example</span></li>
+              <li class="flex items-center gap-2"><i data-lucide="phone"></i><span>+91 98765 43210</span></li>
+              <li class="flex items-center gap-2"><i data-lucide="clock"></i><span>Mon–Sat, 9am–7pm</span></li>
+              <li class="flex items-center gap-2"><i data-lucide="map-pin"></i><span>Mumbai, IN</span></li>
+            </ul>
+          </div>
+          <div class="border rounded-xl bg-white p-6">
+            <h3 class="font-semibold">Connect</h3>
+            <div class="mt-3 flex items-center gap-3 text-slate-700">
+              <a aria-label="Instagram" class="p-2 rounded hover:bg-gray-100" href="#"><i data-lucide="instagram"></i></a>
+              <a aria-label="Pinterest" class="p-2 rounded hover:bg-gray-100" href="#"><i data-lucide="pin"></i></a>
+              <a aria-label="Facebook" class="p-2 rounded hover:bg-gray-100" href="#"><i data-lucide="facebook"></i></a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Brand story teaser strip -->
+    <section class="py-6">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="overflow-x-auto no-scrollbar">
+          <div class="min-w-[720px] flex gap-4">
+            <a href="./about.html#story" class="tile shrink-0 px-4 py-3 rounded-xl bg-white border reveal">Born from boldness</a>
+            <a href="./about.html#values" class="tile shrink-0 px-4 py-3 rounded-xl bg-white border reveal" style="transition-delay:.04s">Woven with warmth</a>
+            <a href="./about.html#team" class="tile shrink-0 px-4 py-3 rounded-xl bg-white border reveal" style="transition-delay:.08s">Confidence in every thread</a>
+            <a href="./shop.html" class="tile shrink-0 px-4 py-3 rounded-xl bg-white border reveal" style="transition-delay:.12s">Ease in motion</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t bg-[#f7f2ee]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid md:grid-cols-3 gap-8">
+        <div>
+          <div class="flex items-center gap-2 font-semibold text-lg">
+            <img src="./assets/logo.jpg" alt="The Outfitwaves" class="h-12 w-12 rounded-full object-cover" />
+            <span>The Outfitwaves</span>
+          </div>
+          <p class="mt-3 text-sm text-gray-600">Timeless fashion for the modern era. Crafted for comfort, designed for confidence.</p>
+          <p class="mt-2 text-sm text-gray-600">Free shipping, easy returns, and secure checkout.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold">Explore</h4>
+          <ul class="mt-3 space-y-2 text-sm text-gray-700">
+            <li><a class="hover:text-sky-600" href="./shop.html">Shop</a></li>
+            <li><a class="hover:text-sky-600" href="./about.html">About</a></li>
+            <li><a class="hover:text-sky-600" href="./blog.html">Blog</a></li>
+            <li><a class="hover:text-sky-600" href="./contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold">Store Info</h4>
+          <ul class="mt-3 space-y-2 text-sm text-gray-700">
+            <li>Support: support@outfitwaves.example</li>
+            <li>Hours: Mon–Sat, 9am–7pm</li>
+            <li>Location: Mumbai, IN</li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-8 pt-8 border-t text-sm text-gray-600 flex items-center justify-between">
+        <p>© <span id="year"></span> The Outfitwaves. All rights reserved.</p>
+        <div class="flex items-center gap-4">
+          <a href="#" class="hover:text-pink-600">Privacy</a>
+          <a href="#" class="hover:text-pink-600">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./assets/js/main.js"></script>
+  <script>
+    // Magnetic button effect for Send
+    (function(){
+      var btn = document.getElementById('send-btn'); if(!btn) return; var inner = btn.querySelector('.inner');
+      btn.addEventListener('mousemove', function(e){ var r = btn.getBoundingClientRect(); var x = (e.clientX - r.left - r.width/2)/12; var y = (e.clientY - r.top - r.height/2)/12; inner.style.transform = 'translate('+x+'px,'+y+'px)'; });
+      btn.addEventListener('mouseleave', function(){ inner.style.transform = 'translate(0,0)'; });
+    })();
+
+    // Parallax for hero
+    (function(){
+      var layer = document.getElementById('hero-par'); if(!layer) return; var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function onScroll(){ if(reduced) return; var y = window.scrollY || document.documentElement.scrollTop; layer.style.transform = 'translateY(' + (y * 0.2) + 'px)'; }
+      window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+    })();
+
+    // Success toast on submit
+    (function(){
+      var form = document.getElementById('contact-form'); if(!form) return; var toast = document.getElementById('toast'); if(!toast){ toast = document.createElement('div'); toast.id='toast'; toast.innerHTML='<span>Thanks for reaching out—we\'ll ride the wave back soon!</span>'; document.body.appendChild(toast); }
+      var inputs = Array.from(form.querySelectorAll('.fl-input'));
+      // floating labels fill state + typing pulse
+      inputs.forEach(function(inp){ function fill(){ inp.parentElement.classList.toggle('filled', !!inp.value); } fill(); inp.addEventListener('input', function(){ inp.classList.add('typing'); setTimeout(function(){ inp.classList.remove('typing'); }, 300); fill(); }); inp.addEventListener('blur', fill); });
+      form.addEventListener('submit', function(e){ e.preventDefault();
+        // simple validation
+        var invalid = inputs.filter(function(i){ return i.hasAttribute('required') && !i.value.trim(); });
+        if(invalid.length){ invalid.forEach(function(i){ i.classList.add('shake'); setTimeout(function(){ i.classList.remove('shake'); }, 400); }); return; }
+        // animate paper plane
+        var plane = document.querySelector('#send-btn i'); if(plane){ plane.style.transition='transform .5s ease, opacity .5s ease'; plane.style.transform='translate(16px,-16px) rotate(12deg)'; plane.style.opacity='0.6'; setTimeout(function(){ plane.style.transform=''; plane.style.opacity=''; }, 600); }
+        toast.classList.add('show'); setTimeout(function(){ toast.classList.remove('show'); }, 2200); form.reset(); inputs.forEach(function(i){ i.parentElement.classList.remove('filled'); });
+      });
+    })();
+  </script>
+
+  <!-- Floating chat bubble -->
+  <div id="chat">
+    <div class="flex gap-2">
+      <a href="https://wa.me/919316296065" target="_blank" rel="noopener" class="px-4 py-3 rounded-full bg-green-600 text-white hover:bg-green-700 inline-flex items-center gap-2"><i data-lucide="message-circle"></i><span class="hidden sm:inline">WhatsApp</span></a>
+      <a href="https://instagram.com/himanshi_rabari_2011" target="_blank" rel="noopener" class="px-4 py-3 rounded-full bg-pink-600 text-white hover:bg-pink-700 inline-flex items-center gap-2"><i data-lucide="instagram"></i><span class="hidden sm:inline">DM</span></a>
+    </div>
+  </div>
+</body>
+</html>

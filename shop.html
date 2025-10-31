@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Outfitwaves - Shop</title>
+  <meta name="description" content="Browse products - The Outfitwaves" />
+  <link rel="icon" type="image/jpeg" href="./assets/logo.jpg" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+</head>
+
+<body class="min-h-screen flex flex-col bg-white text-gray-900">
+  <!-- Header -->
+  <header class="border-b bg-white sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex h-16 items-center justify-between">
+        <a href="./index.html" class="flex items-center gap-2 font-semibold text-xl">
+          <img src="./assets/logo.jpg" alt="The Outfitwaves" class="h-12 w-12 rounded-full object-cover" />
+          <span>The Outfitwaves</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-6">
+          <a href="./index.html" class="hover:text-sky-600">Home</a>
+          <a href="./shop.html" class="text-sky-600 font-medium">Shop</a>
+          <a href="./about.html" class="hover:text-sky-600">About</a>
+          <a href="./blog.html" class="hover:text-sky-600">Blog</a>
+          <a href="./contact.html" class="hover:text-sky-600">Contact</a>
+        </nav>
+        <div class="flex items-center gap-3">
+          <button class="p-2 rounded hover:bg-gray-100" aria-label="Search"><i data-lucide="search"></i></button>
+          <button class="p-2 rounded hover:bg-gray-100" aria-label="Account"><i data-lucide="user"></i></button>
+          <a href="./cart.html"
+            class="relative inline-flex items-center gap-2 px-3 py-2 rounded-md border hover:bg-gray-50">
+            <i data-lucide="shopping-cart"></i>
+            <span class="sr-only">Cart</span>
+            <span id="cart-count"
+              class="ml-1 inline-flex items-center justify-center text-xs px-1.5 min-w-[1.25rem] h-5 rounded-full bg-sky-600 text-white">0</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1">
+    <!-- Page header -->
+    <section class="bg-gradient-to-b from-gray-100 to-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div class="relative w-full md:w-96">
+            <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            <input id="q" type="search" placeholder="Search products"
+              class="w-full pl-10 pr-4 py-2 rounded-md border" />
+          </div>
+          <p class="flex items-center gap-2 text-sm text-gray-600">
+            <span id="result-count">Showing 0 results</span>
+            <span id="filters-active"
+              class="hidden text-xs px-2 py-0.5 rounded-full bg-sky-50 text-sky-700 dark:bg-sky-900/40 dark:text-sky-200">Filters
+              active</span>
+            <button id="filters-reset" type="button" class="hidden text-xs text-sky-700 underline">Reset</button>
+          </p>
+          <select id="sort" class="w-44 border rounded-md px-3 py-2">
+            <option>Relevance</option>
+            <option>Price: Low to High</option>
+            <option>Price: High to Low</option>
+            <option>Name: A-Z</option>
+          </select>
+        </div>
+        <!-- Quick category links -->
+        <div id="quick-chips" class="relative mt-4 flex gap-2 overflow-x-auto whitespace-nowrap -mx-4 px-4 pb-1">
+          <a href="./shop.html?q=men"
+            class="px-3 py-1 rounded-full bg-sky-50 text-sky-700 hover:bg-sky-100 text-sm">Men</a>
+          <a href="./shop.html?q=women"
+            class="px-3 py-1 rounded-full bg-sky-50 text-sky-700 hover:bg-sky-100 text-sm">Women</a>
+          <a href="./shop.html?q=accessories"
+            class="px-3 py-1 rounded-full bg-sky-50 text-sky-700 hover:bg-sky-100 text-sm">Accessories</a>
+          <a href="./shop.html?q=hoodies"
+            class="px-3 py-1 rounded-full bg-sky-50 text-sky-700 hover:bg-sky-100 text-sm">Hoodies</a>
+          <a href="./shop.html?q=jackets"
+            class="px-3 py-1 rounded-full bg-sky-50 text-sky-700 hover:bg-sky-100 text-sm">Jackets</a>
+          <a href="./shop.html?q=dresses"
+            class="px-3 py-1 rounded-full bg-sky-50 text-sky-700 hover:bg-sky-100 text-sm">Dresses</a>
+          <a href="./shop.html?q=tops"
+            class="px-3 py-1 rounded-full bg-sky-50 text-sky-700 hover:bg-sky-100 text-sm">Tops</a>
+          <a href="./shop.html?q=watches"
+            class="px-3 py-1 rounded-full bg-sky-50 text-sky-700 hover:bg-sky-100 text-sm">Watches</a>
+          <a href="./shop.html?q=bags"
+            class="px-3 py-1 rounded-full bg-sky-50 text-sky-700 hover:bg-sky-100 text-sm">Bags</a>
+          <a href="./shop.html?q=shoes"
+            class="px-3 py-1 rounded-full bg-sky-50 text-sky-700 hover:bg-sky-100 text-sm">Shoes</a>
+          <button id="clear-filters" type="button"
+            class="ml-auto px-3 py-1 rounded-full border text-sm hover:bg-gray-50">Clear filters</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content with optional sidebar feel -->
+    <section class="py-8">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <!-- Sidebar (filters) -->
+        <aside class="lg:col-span-1 space-y-6">
+          <div class="p-4 rounded-xl border">
+            <p class="font-semibold">Filter by price</p>
+            <div class="mt-4">
+              <input id="price-range" type="range" min="0" max="40000" value="20000" class="w-full" />
+              <p id="price-label" class="text-sm text-gray-600 mt-2">Price: ₹0 — ₹20000</p>
+            </div>
+            <button id="price-apply" class="mt-4 px-4 py-2 rounded-md bg-pink-600 text-white w-full">Filter</button>
+          </div>
+          <div class="p-4 rounded-xl border">
+            <p class="font-semibold">Categories</p>
+            <div id="cat-list" class="mt-3 flex flex-wrap gap-2 text-sm"></div>
+          </div>
+          <div class="p-4 rounded-xl border">
+            <p class="font-semibold">Recently Viewed Products</p>
+            <ul class="mt-3 space-y-3 text-sm">
+              <li class="flex items-center gap-3">
+                <img src="./assets/Rectangle-5.png" class="w-12 h-12 rounded object-cover" alt="thumb" />
+                <div>
+                  <p>Oxford cotton shirt</p>
+                  <p class="text-gray-500">$88.00</p>
+                </div>
+              </li>
+              <li class="flex items-center gap-3">
+                <img src="./assets/Rectangle-6.png" class="w-12 h-12 rounded object-cover" alt="thumb" />
+                <div>
+                  <p>Your Closet Your Rules</p>
+                  <p class="text-gray-500 line-through">$68.00</p>
+                  <p>$30.00</p>
+                </div>
+              </li>
+              <li class="flex items-center gap-3">
+                <img src="./assets/Rectangle-7.png" class="w-12 h-12 rounded object-cover" alt="thumb" />
+                <div>
+                  <p>Hooded sweatshirt</p>
+                  <p class="text-gray-500">$140.00</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </aside>
+
+        <!-- Products grid -->
+        <section class="lg:col-span-3">
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+            <!-- 18 product cards -->
+
+            <article class="group border rounded-xl overflow-hidden bg-white" data-cat="men,shirts,tees">
+              <div class="relative aspect-[4/5] overflow-hidden">
+                <img src="./assets/portrait-of-young-handsome-man-scaled.jpg" alt="Men's Tee"
+                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              </div>
+              <div class="p-3">
+                <h3 class="text-sm font-medium">Cotton jersey polo shirt</h3>
+                <p class="text-sm text-gray-700">$120.00</p>
+              </div>
+            </article>
+
+            <article class="group border rounded-xl overflow-hidden bg-white">
+              <div class="relative aspect-[4/5] overflow-hidden">
+                <img src="./assets/image-110.png" alt="Hoodie"
+                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              </div>
+              <div class="p-3">
+                <h3 class="text-sm font-medium">Cotton jersey hooded sweatshirt</h3>
+                <p class="text-sm text-gray-700">$140.00</p>
+              </div>
+            </article>
+
+            <article class="group border rounded-xl overflow-hidden bg-white">
+              <div class="relative aspect-[4/5] overflow-hidden">
+                <img src="./assets/Rectangle-10.png" alt="Sweatshirt"
+                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              </div>
+              <div class="p-3">
+                <h3 class="text-sm font-medium">Cotton jersey sweatshirt</h3>
+                <p class="text-sm text-gray-700">$149.00</p>
+              </div>
+            </article>
+
+            <article class="group border rounded-xl overflow-hidden bg-white">
+              <div class="relative aspect-[4/5] overflow-hidden">
+                <img src="./assets/team-scaled.jpg" alt="Men's Shirt"
+                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              </div>
+              <div class="p-3">
+                <h3 class="text-sm font-medium">Stylish & Comfortable Men's T‑Shirts</h3>
+                <p class="text-sm text-gray-700">$120.00</p>
+              </div>
+            </article>
+
+            <article class="group border rounded-xl overflow-hidden bg-white">
+              <div class="relative aspect-[4/5] overflow-hidden">
+                <img src="./assets/Rectangle-11.png" alt="Casual Top"
+                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              </div>
+              <div class="p-3">
+                <h3 class="text-sm font-medium">Casual Crewneck</h3>
+                <p class="text-sm text-gray-700">$89.00</p>
+              </div>
+            </article>
+
+            <article class="group border rounded-xl overflow-hidden bg-white">
+              <div class="relative aspect-[4/5] overflow-hidden">
+                <img src="./assets/Rectangle-12.png" alt="Outerwear"
+                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              </div>
+              <div class="p-3">
+                <h3 class="text-sm font-medium">Classic Jacket</h3>
+                <p class="text-sm text-gray-700">$199.00</p>
+              </div>
+            </article>
+
+            <article class="group border rounded-xl overflow-hidden bg-white">
+              <div class="relative aspect-[4/5] overflow-hidden">
+                <img src="./assets/Rectangle-13.png" alt="Shirt"
+                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              </div>
+              <div class="p-3">
+                <h3 class="text-sm font-medium">Summer Shirt</h3>
+                <p class="text-sm text-gray-700">$64.00</p>
+              </div>
+            </article>
+
+            <article class="group border rounded-xl overflow-hidden bg-white">
+              <div class="relative aspect-[4/5] overflow-hidden">
+                <img src="./assets/Rectangle-14.png" alt="Set"
+                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              </div>
+              <div class="p-3">
+                <h3 class="text-sm font-medium">Statement Set</h3>
+                <p class="text-sm text-gray-700">$230.00</p>
+              </div>
+            </article>
+
+            <article class="group border rounded-xl overflow-hidden bg-white">
+              <div class="relative aspect-[4/5] overflow-hidden">
+                <img src="./assets/Rectangle-15.png" alt="Dress"
+                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              </div>
+              <div class="p-3">
+                <h3 class="text-sm font-medium">Urban Dress</h3>
+                <p class="text-sm text-gray-700">$159.00</p>
+              </div>
+            </article>
+
+            <article class="group border rounded-xl overflow-hidden bg-white">
+              <div class="relative aspect-[4/5] overflow-hidden">
+                <img src="./assets/young-middle-eastern-man-scaled.jpg" alt="Shirt"
+                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              </div>
+              <div class="p-3">
+                <h3 class="text-sm font-medium">Modern Print Shirt</h3>
+                <p class="text-sm text-gray-700">$124.00</p>
+              </div>
+            </article>
+
+            <article class="group border rounded-xl overflow-hidden bg-white">
+              <div class="relative aspect-[4/5] overflow-hidden">
+                <img src="./assets/our-team-1.jpg" alt="Top"
+                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              </div>
+              <div class="p-3">
+                <h3 class="text-sm font-medium">Everyday Top</h3>
+                <p class="text-sm text-gray-700">$49.00</p>
+              </div>
+            </article>
+
+            <article class="group border rounded-xl overflow-hidden bg-white">
+              <div class="relative aspect-[4/5] overflow-hidden">
+                <img src="./assets/our-team-2.jpg" alt="Top"
+                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              </div>
+              <div class="p-3">
+                <h3 class="text-sm font-medium">Soft Tee</h3>
+                <p class="text-sm text-gray-700">$39.00</p>
+              </div>
+            </article>
+
+            <article class="group border rounded-xl overflow-hidden bg-white">
+              <div class="relative aspect-[4/5] overflow-hidden">
+                <img src="./assets/our-team-3.jpg" alt="Top"
+                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              </div>
+              <div class="p-3">
+                <h3 class="text-sm font-medium">Classic Tee</h3>
+                <p class="text-sm text-gray-700">$42.00</p>
+              </div>
+            </article>
+
+            <article class="group border rounded-xl overflow-hidden bg-white">
+              <div class="relative aspect-[4/5] overflow-hidden">
+                <img src="./assets/our-team-4.jpg" alt="Top"
+                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              </div>
+              <div class="p-3">
+                <h3 class="text-sm font-medium">Premium Tee</h3>
+                <p class="text-sm text-gray-700">$55.00</p>
+              </div>
+            </article>
+
+            <article class="group border rounded-xl overflow-hidden bg-white">
+              <div class="relative aspect-[4/5] overflow-hidden">
+                <img src="./assets/stylist-fastening-fashion-model-s-dress-scaled.jpg" alt="Dress"
+                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              </div>
+              <div class="p-3">
+                <h3 class="text-sm font-medium">Elegant Dress</h3>
+                <p class="text-sm text-gray-700">$210.00</p>
+              </div>
+            </article>
+
+            <article class="group border rounded-xl overflow-hidden bg-white">
+              <div class="relative aspect-[4/5] overflow-hidden">
+                <img src="./assets/fashion-portrait-of-woman-scaled.jpg" alt="Fashion"
+                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              </div>
+              <div class="p-3">
+                <h3 class="text-sm font-medium">Street Style Jacket</h3>
+                <p class="text-sm text-gray-700">$175.00</p>
+              </div>
+            </article>
+
+            <article class="group border rounded-xl overflow-hidden bg-white">
+              <div class="relative aspect-[4/5] overflow-hidden">
+                <img src="./assets/Rectangle-9.png" alt="Bag"
+                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              </div>
+              <div class="p-3">
+                <h3 class="text-sm font-medium">Leather Bag</h3>
+                <p class="text-sm text-gray-700">$129.00</p>
+              </div>
+            </article>
+
+            <article class="group border rounded-xl overflow-hidden bg-white">
+              <div class="relative aspect-[4/5] overflow-hidden">
+                <img src="./assets/Rectangle-8.png" alt="Accessory"
+                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              </div>
+              <div class="p-3">
+                <h3 class="text-sm font-medium">Statement Accessory</h3>
+                <p class="text-sm text-gray-700">$39.00</p>
+              </div>
+            </article>
+
+            <article class="group border rounded-xl overflow-hidden bg-white">
+              <div class="relative aspect-[4/5] overflow-hidden">
+                <img src="./assets/Rectangle-4.png" alt="Shoes"
+                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              </div>
+              <div class="p-3">
+                <h3 class="text-sm font-medium">Classic Shoes</h3>
+                <p class="text-sm text-gray-700">$119.00</p>
+              </div>
+            </article>
+
+            <article class="group border rounded-xl overflow-hidden bg-white">
+              <div class="relative aspect-[4/5] overflow-hidden">
+                <img src="./assets/Rectangle-5-2.png" alt="Watch"
+                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              </div>
+              <div class="p-3">
+                <h3 class="text-sm font-medium">Premium Watch</h3>
+                <p class="text-sm text-gray-700">$299.00</p>
+              </div>
+            </article>
+
+            <article class="group border rounded-xl overflow-hidden bg-white">
+              <div class="relative aspect-[4/5] overflow-hidden">
+                <img src="./assets/Rectangle-5-4.png" alt="Watch"
+                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              </div>
+              <div class="p-3">
+                <h3 class="text-sm font-medium">Dress Watch</h3>
+                <p class="text-sm text-gray-700">$189.00</p>
+              </div>
+            </article>
+
+            <article class="group border rounded-xl overflow-hidden bg-white">
+              <div class="relative aspect-[4/5] overflow-hidden">
+                <img src="./assets/Rectangle-78.png" alt="Women"
+                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              </div>
+              <div class="p-3">
+                <h3 class="text-sm font-medium">Chic Women's Wear</h3>
+                <p class="text-sm text-gray-700">$118.00</p>
+              </div>
+            </article>
+
+            <article class="group border rounded-xl overflow-hidden bg-white">
+              <div class="relative aspect-[4/5] overflow-hidden">
+                <img src="./assets/fun-group-of-friends-posing-crouching-scaled.jpg" alt="Group"
+                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              </div>
+              <div class="p-3">
+                <h3 class="text-sm font-medium">Statement Crew</h3>
+                <p class="text-sm text-gray-700">$220.00</p>
+              </div>
+            </article>
+
+          </div>
+        </section>
+        <!-- Best Sellers -->
+        <section class="lg:col-span-4 mt-10">
+          <h3 class="text-lg font-semibold">Best selling Clothes</h3>
+          <p class="text-sm text-gray-600">Shop our most popular picks</p>
+          <div id="best-sellers" class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4"></div>
+        </section>
+        <!-- You may also like -->
+        <section class="lg:col-span-4 mt-10">
+          <h3 class="text-lg font-semibold">You may also like</h3>
+          <div id="reco" class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4"></div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <!-- Product detail modal -->
+  <div id="product-modal" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center px-4">
+    <div class="max-w-5xl w-full bg-white rounded-2xl overflow-hidden shadow-xl grid md:grid-cols-2">
+      <div class="bg-gray-50 p-4 flex flex-col">
+        <div class="flex-1 flex items-center justify-center">
+          <img id="pm-image" src="" alt="Product" class="max-h-[60vh] object-contain rounded" />
+        </div>
+        <div id="pm-thumbs" class="mt-3 flex gap-2 overflow-x-auto"></div>
+      </div>
+      <div class="p-6 relative">
+        <button id="pm-close" class="absolute right-3 top-3 p-2 rounded hover:bg-gray-100" aria-label="Close"><i
+            data-lucide="x"></i></button>
+        <h3 id="pm-name" class="text-2xl font-bold"></h3>
+        <p id="pm-price" class="mt-2 text-xl text-sky-700 font-semibold"></p>
+        <p id="pm-desc" class="mt-3 text-gray-700 text-sm leading-relaxed"></p>
+        <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+          <div>
+            <p class="font-medium mb-1">Select Size</p>
+            <div id="pm-sizes" class="flex flex-wrap gap-2"></div>
+          </div>
+          <div>
+            <p class="font-medium mb-1">Select Color</p>
+            <div id="pm-colors" class="flex items-center gap-2"></div>
+          </div>
+        </div>
+        <div class="mt-5 flex gap-3">
+          <button id="pm-add" class="px-4 py-2 rounded-md bg-sky-600 text-white hover-brand">Add to Cart</button>
+          <a id="pm-buy" href="./cart.html" class="px-4 py-2 rounded-md border hover-brand">Buy Now</a>
+        </div>
+        <div class="mt-8">
+          <h4 class="font-semibold">Related products</h4>
+          <div id="pm-related" class="mt-3 grid grid-cols-3 gap-3"></div>
+          <button id="pm-more" class="mt-3 text-sm px-3 py-1 rounded-md border hover-brand">Show more</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid md:grid-cols-3 gap-8">
+        <div>
+          <div class="flex items-center gap-2 font-semibold text-lg">
+            <img src="./assets/logo.jpg" alt="The Outfitwaves" class="h-10 w-10 rounded-full object-cover" />
+            <span>The Outfitwaves</span>
+          </div>
+          <p class="mt-3 text-sm text-gray-600">Timeless fashion for the modern era. Crafted for comfort, designed for
+            confidence.</p>
+          <p class="mt-2 text-sm text-gray-600">Free shipping, easy returns, and secure checkout.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold">Explore</h4>
+          <ul class="mt-3 space-y-2 text-sm text-gray-700">
+            <li><a class="hover:text-sky-600" href="./shop.html">Shop</a></li>
+            <li><a class="hover:text-sky-600" href="./about.html">About</a></li>
+            <li><a class="hover:text-sky-600" href="./blog.html">Blog</a></li>
+            <li><a class="hover:text-sky-600" href="./contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold">Store Info</h4>
+          <ul class="mt-3 space-y-2 text-sm text-gray-700">
+            <li>Support: support@outfitwaves.example</li>
+            <li>Hours: Mon–Sat, 9am–7pm</li>
+            <li>Location: Mumbai, IN</li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-8 pt-8 border-t text-sm text-gray-600 flex items-center justify-between">
+        <p>&copy; <span id="year"></span> The Outfitwaves. All rights reserved.</p>
+        <div class="flex items-center gap-4">
+          <a href="#" class="hover:text-sky-600">Privacy</a>
+          <a href="#" class="hover:text-sky-600">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./assets/js/main.js"></script>
+  <script>
+    (function () {
+      var RATE = 83; // USD->INR approx
+      function rupee(n) { return '₹' + n.toLocaleString('en-IN'); }
+
+      function initCartCount() {
+        var el = document.getElementById('cart-count');
+        var n = parseInt(localStorage.getItem('cartCount') || '0', 10);
+        if (el) { el.textContent = n; }
+        return n;
+      }
+
+      function addBestSellerRibbons() {
+        var s = {}; try { s = JSON.parse(localStorage.getItem('salesCounts') || '{}'); } catch (e) { }
+        document.querySelectorAll('article.group').forEach(function (card) {
+          var body = card.querySelector('.p-3 h3'); var name = body ? body.textContent.trim() : '';
+          var count = s[name] || 0; if (count <= 0) return;
+          var wrap = card.querySelector('.relative'); if (!wrap) return;
+          if (wrap.querySelector('.ow-badge')) return;
+          var b = document.createElement('span'); b.className = 'ow-badge absolute left-2 top-2 text-[10px] px-1.5 rounded-full bg-sky-600 text-white animate-pulse'; b.textContent = '+' + count; wrap.appendChild(b);
+        });
+      }
+      function setCartCount(n) { localStorage.setItem('cartCount', String(n)); var el = document.getElementById('cart-count'); if (el) { el.textContent = n; } }
+
+      function getCart() { try { return JSON.parse(localStorage.getItem('cartItems') || '[]'); } catch (e) { return []; } }
+      function setCart(items) { localStorage.setItem('cartItems', JSON.stringify(items)); }
+      function recordSale(name) { try { var s = JSON.parse(localStorage.getItem('salesCounts') || '{}'); s[name] = (s[name] || 0) + 1; localStorage.setItem('salesCounts', JSON.stringify(s)); } catch (e) { } }
+      function addToCart(item) {
+        var items = getCart();
+        var existing = items.find(function (it) { return it.name === item.name; });
+        if (existing) { existing.qty += 1; }
+        else { items.push(Object.assign({ qty: 1 }, item)); }
+        setCart(items);
+        setCartCount(initCartCount() + 1);
+        recordSale(item.name);
+      }
+
+      function enrichProducts() {
+        var catalog = {
+          'portrait-of-young-handsome-man-scaled.jpg': { name: 'Classic Cotton Polo', cat: 'men,shirts,tees', desc: 'Breathable cotton polo for daily comfort. Tailored fit that works from desk to dinner.' },
+          'image-110.png': { name: 'Fleece Hoodie', cat: 'men,hoodies', desc: 'Cozy fleece-lined hoodie with adjustable drawstring and kangaroo pocket.' },
+          'Rectangle-10.png': { name: 'Everyday Sweatshirt', cat: 'men,sweatshirts', desc: 'Mid‑weight sweatshirt with ribbed hems. Perfect layering essential.' },
+          'team-scaled.jpg': { name: 'Graphic Tee Pack', cat: 'men,tshirts', desc: 'Soft crewneck tee with bold graphic print. Made for all-day wear.' },
+          'Rectangle-11.png': { name: 'Women’s Casual Top', cat: 'women,tops', desc: 'Relaxed-fit top with breathable fabric and subtle texture.' },
+          'Rectangle-12.png': { name: 'Heritage Jacket', cat: 'men,jackets', desc: 'Timeless jacket with durable hardware and a comfortable lining.' },
+          'Rectangle-13.png': { name: 'Linen Summer Shirt', cat: 'men,shirts,summer', desc: 'Lightweight linen blend to keep you cool in warm weather.' },
+          'Rectangle-14.png': { name: 'Statement Co-ord Set', cat: 'women,sets', desc: 'Coordinated top and bottom with a flattering silhouette.' },
+          'Rectangle-15.png': { name: 'City Dress', cat: 'women,dresses', desc: 'Elegant A-line dress suitable for evenings and events.' },
+          'young-middle-eastern-man-scaled.jpg': { name: 'Modern Print Shirt', cat: 'men,shirts,prints', desc: 'Sharp print shirt that pairs well with chinos or denim.' },
+          'our-team-1.jpg': { name: 'Everyday Top', cat: 'women,tops', desc: 'Versatile top designed for comfort and style.' },
+          'our-team-2.jpg': { name: 'Soft Tee', cat: 'women,tops', desc: 'Ultra-soft tee that feels great on the skin.' },
+          'our-team-3.jpg': { name: 'Classic Tee', cat: 'women,tops', desc: 'Classic crewneck tee with durable stitching.' },
+          'our-team-4.jpg': { name: 'Premium Tee', cat: 'women,tops', desc: 'Premium cotton tee with a tailored cut.' },
+          'stylist-fastening-fashion-model-s-dress-scaled.jpg': { name: 'Evening Dress', cat: 'women,dresses', desc: 'Chic evening dress with flattering drape and sheen.' },
+          'fashion-portrait-of-woman-scaled.jpg': { name: 'Street Jacket', cat: 'women,jackets', desc: 'Street‑style jacket with utility pockets and soft lining.' },
+          'Rectangle-9.png': { name: 'Leather Tote Bag', cat: 'accessories,bags', desc: 'Spacious tote made from premium faux leather.' },
+          'Rectangle-8.png': { name: 'Statement Bracelet', cat: 'accessories,accessory', desc: 'Minimal bracelet that elevates any outfit.' },
+          'Rectangle-4.png': { name: 'Retro Sneakers', cat: 'men,shoes', desc: 'Cushioned sole with a classic silhouette. Great everyday sneakers.' },
+          'Rectangle-5-2.png': { name: 'Premium Watch', cat: 'accessories,watches', desc: 'Stainless steel watch with quartz movement.' },
+          'Rectangle-5-4.png': { name: 'Dress Watch', cat: 'accessories,watches', desc: 'Slim profile watch for formal looks.' },
+          'Rectangle-78.png': { name: 'Chic Co-ord', cat: 'women,wear', desc: 'Stylish set designed to mix and match with your wardrobe.' },
+          'fun-group-of-friends-posing-crouching-scaled.jpg': { name: 'Crew Set', cat: 'group,sets', desc: 'Comfortable matching set perfect for outings with friends.' }
+        };
+        document.querySelectorAll('article.group').forEach(function (card) {
+          var img = card.querySelector('img'); if (!img) return; var src = img.getAttribute('src') || ''; var file = src.split('/').pop();
+          var meta = catalog[file]; if (!meta) return;
+          // name
+          var h = card.querySelector('.p-3 h3'); if (h) h.textContent = meta.name;
+          // categories and desc
+          if (!card.dataset.cat) card.dataset.cat = meta.cat;
+          if (!card.dataset.desc) card.dataset.desc = meta.desc;
+        });
+      }
+
+      function addCategoryBadges() {
+        document.querySelectorAll('article.group').forEach(function (card) {
+          if (card.querySelector('.ow-cat')) return;
+          var cats = (card.dataset.cat || '').split(','); var main = cats[0] ? cats[0].trim() : '';
+          if (!main) return;
+          var wrap = card.querySelector('.relative'); if (!wrap) return;
+          var badge = document.createElement('div');
+          badge.className = 'ow-cat absolute left-2 top-2 text-xs px-2 py-0.5 rounded-full bg-white/90 border';
+          badge.textContent = main;
+          wrap.appendChild(badge);
+        });
+      }
+
+      function convertPricesToINR() {
+        document.querySelectorAll('article.group').forEach(function (card) {
+          // find first price element inside card body
+          var priceEl = card.querySelector('.p-3 p.text-sm.text-gray-700, .p-3 p.text-sm:not(.line-through)');
+          if (!priceEl) return;
+          var txt = priceEl.textContent || '';
+          var m = txt.match(/([₹$])\s?([0-9]+(?:\.[0-9]{1,2})?)/);
+          var val = m ? parseFloat(m[2]) : parseFloat(txt.replace(/[^0-9.]/g, ''));
+          if (!isFinite(val)) return;
+          var inr = txt.includes('₹') ? Math.round(val) : Math.round(val * RATE);
+          priceEl.textContent = rupee(inr);
+          card.dataset.priceInr = String(inr);
+        });
+      }
+
+      function addCardButtons() {
+        document.querySelectorAll('article.group').forEach(function (card) {
+          var body = card.querySelector('.p-3');
+          if (!body || body.querySelector('.ow-actions')) return;
+          var wrap = document.createElement('div');
+          wrap.className = 'ow-actions mt-2 flex gap-2';
+          var btnAdd = document.createElement('button');
+          btnAdd.type = 'button';
+          btnAdd.className = 'px-3 py-2 rounded-md bg-sky-600 text-white btn-elevate hover-brand';
+          btnAdd.textContent = 'Add to Cart';
+          btnAdd.addEventListener('click', function () {
+            var name = body.querySelector('h3') ? body.querySelector('h3').textContent.trim() : 'Item';
+            var img = card.querySelector('img') ? card.querySelector('img').getAttribute('src') : '';
+            var price = parseInt(card.dataset.priceInr || '0', 10);
+            addToCart({ name: name, priceInr: price, img: img });
+          });
+          var linkBuy = document.createElement('a');
+          linkBuy.href = './cart.html';
+          linkBuy.className = 'px-3 py-2 rounded-md bg-sky-600 text-white btn-elevate hover-brand';
+          linkBuy.textContent = 'Shop Now';
+          linkBuy.addEventListener('click', function (e) {
+            // ensure the clicked product is added before navigating
+            e.preventDefault();
+            var name = body.querySelector('h3') ? body.querySelector('h3').textContent.trim() : 'Item';
+            var img = card.querySelector('img') ? card.querySelector('img').getAttribute('src') : '';
+            var price = parseInt(card.dataset.priceInr || '0', 10);
+            addToCart({ name: name, priceInr: price, img: img });
+            window.location.href = './cart.html';
+          });
+          wrap.appendChild(btnAdd); wrap.appendChild(linkBuy); body.appendChild(wrap);
+        });
+      }
+
+      function initProductModal() {
+        var modal = document.getElementById('product-modal');
+        var imgEl = document.getElementById('pm-image');
+        var nameEl = document.getElementById('pm-name');
+        var priceEl = document.getElementById('pm-price');
+        var descEl = document.getElementById('pm-desc');
+        var specs = document.createElement('div'); specs.className = 'mt-4 text-sm'; specs.id = 'pm-specs';
+        descEl.after(specs);
+        var addBtn = document.getElementById('pm-add');
+        var buyA = document.getElementById('pm-buy');
+        var relWrap = document.getElementById('pm-related');
+        var moreBtn = document.getElementById('pm-more');
+        var closeBtn = document.getElementById('pm-close');
+        var thumbs = document.getElementById('pm-thumbs');
+        var sizeWrap = document.getElementById('pm-sizes');
+        var colorWrap = document.getElementById('pm-colors');
+
+        function openFor(card) {
+          var body = card.querySelector('.p-3');
+          var name = body && body.querySelector('h3') ? body.querySelector('h3').textContent.trim() : 'Item';
+          var img = card.querySelector('img') ? card.querySelector('img').getAttribute('src') : '';
+          var price = parseInt(card.dataset.priceInr || '0', 10);
+          imgEl.src = img; nameEl.textContent = name; priceEl.textContent = rupee(price);
+          var generic = card.dataset.desc || 'Crafted with premium materials for all-day comfort. Ideal for daily wear and special occasions. Easy-care fabric.';
+          descEl.textContent = generic;
+          specs.innerHTML = '<ul class="list-disc pl-5 text-gray-700">' +
+            '<li>Sizes: S, M, L, XL</li>' +
+            '<li>Colors: Black, White, Blue</li>' +
+            '<li>Material: 100% Cotton Blend</li>' +
+            '</ul>';
+          // Variants
+          sizeWrap.innerHTML = '';['S', 'M', 'L', 'XL'].forEach(function (s) { var b = document.createElement('button'); b.className = 'px-3 py-1 rounded border'; b.textContent = s; b.addEventListener('click', function () { Array.from(sizeWrap.children).forEach(function (x) { x.classList.remove('bg-sky-600', 'text-white'); }); b.classList.add('bg-sky-600', 'text-white'); sizeWrap.dataset.value = s; }); sizeWrap.appendChild(b); });
+          colorWrap.innerHTML = '';['Black', 'White', 'Blue'].forEach(function (c) { var b = document.createElement('button'); b.className = 'w-7 h-7 rounded-full border'; b.title = c; b.style.background = c.toLowerCase(); b.addEventListener('click', function () { Array.from(colorWrap.children).forEach(function (x) { x.classList.remove('ring-2', 'ring-sky-600'); }); b.classList.add('ring-2', 'ring-sky-600'); colorWrap.dataset.value = c; }); colorWrap.appendChild(b); });
+          sizeWrap.dataset.value = 'M'; colorWrap.dataset.value = 'Black'; if (sizeWrap.firstChild) sizeWrap.firstChild.click(); if (colorWrap.firstChild) colorWrap.firstChild.click();
+
+          // Gallery thumbnails (use same-category images when available)
+          thumbs.innerHTML = '';
+          var currentCat = (card.dataset.cat || '').split(',')[0] || '';
+          var pool = Array.from(document.querySelectorAll('article.group')).filter(function (c) { return c !== card && (c.dataset.cat || '').includes(currentCat); });
+          var images = [img];
+          for (var i = 0; i < pool.length && images.length < 4; i++) { var ci = pool[i].querySelector('img'); if (ci) { images.push(ci.getAttribute('src')); } }
+          images.forEach(function (src, idx) { var t = document.createElement('img'); t.src = src; t.className = 'w-16 h-16 object-cover rounded cursor-pointer border'; if (idx === 0) t.classList.add('ring-2', 'ring-sky-600'); t.addEventListener('click', function () { imgEl.src = src; Array.from(thumbs.children).forEach(function (x) { x.classList.remove('ring-2', 'ring-sky-600'); }); t.classList.add('ring-2', 'ring-sky-600'); }); thumbs.appendChild(t); });
+
+          // Bind actions
+          function withVariant() { var sz = sizeWrap.dataset.value || ''; var col = colorWrap.dataset.value || ''; var n = name + (sz ? (' - ' + sz) : '') + (col ? (' / ' + col) : ''); return { name: n, priceInr: price, img: imgEl.src }; }
+          addBtn.onclick = function () { addToCart(withVariant()); };
+          buyA.onclick = function (e) { e.preventDefault(); addToCart(withVariant()); window.location.href = './cart.html'; };
+          // Related products
+          function renderRelated(seed) {
+            relWrap.innerHTML = '';
+            var cards = Array.from(document.querySelectorAll('article.group'));
+            var others = cards.filter(function (c) { return c !== card; });
+            // simple rotation based on seed
+            for (var i = 0; i < Math.min(3, others.length); i++) {
+              var c = others[(i + seed) % others.length];
+              var ci = c.querySelector('img'); var cb = c.querySelector('.p-3 h3');
+              var rimg = ci ? ci.getAttribute('src') : ''; var rname = cb ? cb.textContent.trim() : 'Item';
+              var rprice = parseInt(c.dataset.priceInr || '0', 10);
+              var a = document.createElement('a'); a.href = 'javascript:void(0)'; a.className = 'block border rounded-md p-2 hover:shadow';
+              a.innerHTML = '<img src="' + rimg + '" class="w-full aspect-square object-cover rounded"/><p class="mt-2 text-xs">' + rname + '</p><p class="text-xs font-medium">' + rupee(rprice) + '</p>';
+              a.addEventListener('click', function (ev) { ev.preventDefault(); openFor(c); });
+              relWrap.appendChild(a);
+            }
+          }
+          var seed = Math.floor(Math.random() * 10);
+          renderRelated(seed);
+          moreBtn.onclick = function () { seed += 3; renderRelated(seed); };
+
+          modal.classList.remove('hidden');
+          document.body.classList.add('overflow-hidden');
+          if (window.lucide) window.lucide.createIcons();
+        }
+
+        document.querySelectorAll('article.group .relative img').forEach(function (img) {
+          img.style.cursor = 'zoom-in';
+          img.addEventListener('click', function () {
+            var card = img.closest('article.group');
+            openFor(card);
+          });
+        });
+        function close() { modal.classList.add('hidden'); document.body.classList.remove('overflow-hidden'); }
+        if (closeBtn) closeBtn.addEventListener('click', close);
+        modal.addEventListener('click', function (e) { if (e.target === modal) close(); });
+      }
+
+      function initFilter() {
+        var range = document.getElementById('price-range');
+        var label = document.getElementById('price-label');
+        var apply = document.getElementById('price-apply');
+        var sortSel = document.getElementById('sort');
+        function updateLabel() { label.textContent = 'Price: ₹0 — ' + rupee(parseInt(range.value, 10)); }
+        function debounce(fn, ms) { var t; return function () { var ctx = this, args = arguments; clearTimeout(t); t = setTimeout(function () { fn.apply(ctx, args); }, ms); }; }
+        function filtersKey() { var cats = Array.from(selectedCats.values()).sort().join('|') || 'all'; return 'shopFilters:' + cats; }
+        function saveFilters(qVal) {
+          try {
+            var cats = Array.from(selectedCats.values());
+            var data = { priceMax: parseInt(range.value, 10), cats: cats, q: (qVal !== undefined ? qVal : (document.getElementById('q')?.value || '')) };
+            localStorage.setItem('shopFilters', JSON.stringify(data)); // legacy global
+            localStorage.setItem(filtersKey(), JSON.stringify(data)); // per-category
+            localStorage.setItem('shopFilters:lastKey', filtersKey());
+          } catch (e) { }
+        }
+        function loadFilters() {
+          try {
+            // try last per-category key first
+            var lastKey = localStorage.getItem('shopFilters:lastKey');
+            var data = null;
+            if (lastKey) { var rawK = localStorage.getItem(lastKey); if (rawK) { data = JSON.parse(rawK); } }
+            if (!data) { var raw = localStorage.getItem('shopFilters'); if (raw) data = JSON.parse(raw); }
+            if (data && typeof data.priceMax === 'number') { range.value = String(data.priceMax); updateLabel(); }
+            return data;
+          } catch (e) { return null; }
+        }
+        var selectedCats = new Set();
+        function searchText() { return (document.getElementById('q')?.value || '').trim().toLowerCase(); }
+        function cardMatches(card, max) {
+          var p = parseInt(card.dataset.priceInr || '0', 10);
+          if (p > max) return false;
+          var name = (card.querySelector('.p-3 h3')?.textContent || '').toLowerCase();
+          var cats = (card.dataset.cat || '').toLowerCase();
+          var q = searchText(); if (q && !(name.includes(q) || cats.includes(q))) return false;
+          if (selectedCats.size > 0) {
+            var cats = (card.dataset.cat || '').toLowerCase().split(',');
+            var hit = false; cats.forEach(function (c) { if (selectedCats.has(c.trim())) hit = true; });
+            if (!hit) return false;
+          }
+          return true;
+        }
+        function sortCards(cards) {
+          var mode = (sortSel && sortSel.value) || 'Relevance';
+          var arr = Array.from(cards);
+          if (mode === 'Price: Low to High') { arr.sort(function (a, b) { return (parseInt(a.dataset.priceInr || '0', 10) - parseInt(b.dataset.priceInr || '0', 10)); }); }
+          else if (mode === 'Price: High to Low') { arr.sort(function (a, b) { return (parseInt(b.dataset.priceInr || '0', 10) - parseInt(a.dataset.priceInr || '0', 10)); }); }
+          else if (mode === 'Name: A-Z') { arr.sort(function (a, b) { return (a.querySelector('.p-3 h3')?.textContent || '').localeCompare(b.querySelector('.p-3 h3')?.textContent || ''); }); }
+          arr.forEach(function (el) { el.parentElement && el.parentElement.appendChild(el); });
+        }
+        function applyFilter() {
+          var max = parseInt(range.value, 10);
+          var cards = document.querySelectorAll('article.group');
+          var visible = 0;
+          cards.forEach(function (card) {
+            card.style.display = cardMatches(card, max) ? '' : 'none';
+            if (card.style.display !== 'none') visible++;
+          });
+          sortCards(document.querySelectorAll('article.group'));
+          var rc = document.getElementById('result-count'); if (rc) { rc.textContent = 'Showing ' + visible + ' results'; }
+          // Toggle Filters active indicator
+          var ind = document.getElementById('filters-active');
+          if (ind) {
+            var qv = (document.getElementById('q')?.value || '').trim();
+            var maxDefault = parseInt(range.max || '40000', 10);
+            var isActive = (qv.length > 0) || (selectedCats.size > 0) || (parseInt(range.value, 10) < maxDefault) || ((sortSel && sortSel.value !== 'Relevance'));
+            ind.classList.toggle('hidden', !isActive);
+            var rst = document.getElementById('filters-reset'); if (rst) { rst.classList.toggle('hidden', !isActive); }
+          }
+        }
+        if (range && label) { range.addEventListener('input', function () { updateLabel(); saveFilters(); }); }
+        if (apply) { apply.addEventListener('click', function () { applyFilter(); saveFilters(); }); }
+        var chipsRow = document.getElementById('quick-chips');
+        function toggleChips(val) { if (!chipsRow) return; if ((val || '').trim()) { chipsRow.classList.add('hidden'); } else { chipsRow.classList.remove('hidden'); } }
+        var qInput = document.getElementById('q'); if (qInput) { qInput.addEventListener('input', debounce(function () { syncHeader(qInput.value); applyFilter(); showSuggest(qInput, qInput.value); saveFilters(qInput.value); toggleChips(qInput.value); }, 180)); toggleChips(qInput.value); }
+        var headerInput = document.getElementById('header-search'); if (headerInput) { headerInput.addEventListener('input', debounce(function () { if (qInput) { qInput.value = headerInput.value; } applyFilter(); showSuggest(headerInput, headerInput.value); saveFilters(headerInput.value); toggleChips(headerInput.value); }, 180)); }
+        if (sortSel) { sortSel.addEventListener('change', function () { localStorage.setItem('shopSort', sortSel.value); applyFilter(); }); }
+        function resetAll() {
+          selectedCats.clear();
+          document.querySelectorAll('#cat-list button').forEach(function (b) { b.classList.remove('bg-sky-600', 'text-white'); });
+          if (qInput) { qInput.value = ''; }
+          var hi = document.getElementById('header-search'); if (hi) { hi.value = ''; }
+          range.value = range.max || '40000'; updateLabel();
+          if (sortSel) { sortSel.value = 'Relevance'; localStorage.setItem('shopSort', 'Relevance'); }
+          // clear stored filters to defaults
+          try { localStorage.removeItem('shopFilters:lastKey'); } catch (e) { }
+          saveFilters(''); toggleChips(''); applyFilter();
+        }
+        var clearBtn = document.getElementById('clear-filters'); if (clearBtn) { clearBtn.addEventListener('click', resetAll); }
+        var resetLink = document.getElementById('filters-reset'); if (resetLink) { resetLink.addEventListener('click', resetAll); }
+
+        // build a simple index for suggestions
+        var index = Array.from(document.querySelectorAll('article.group')).map(function (card) {
+          return {
+            el: card,
+            name: (card.querySelector('.p-3 h3')?.textContent || '').trim(),
+            cats: (card.dataset.cat || '')
+          };
+        });
+
+        function syncHeader(val) { var hi = document.getElementById('header-search'); if (hi) { hi.value = val; } }
+
+        function attachSuggestContainer(input) {
+          var box = input.parentElement.querySelector('.ow-suggest');
+          if (!box) {
+            box = document.createElement('div');
+            box.className = 'ow-suggest absolute left-0 right-0 top-full mt-1 bg-white rounded-lg shadow-lg ring-1 ring-sky-100 z-50 hidden';
+            input.parentElement.style.position = 'relative';
+            input.parentElement.appendChild(box);
+          }
+          return box;
+        }
+        function renderSuggestList(box, matches, q) {
+          box.innerHTML = '';
+          var list = document.createElement('div'); list.setAttribute('role', 'listbox');
+          var ql = (q || '').toLowerCase();
+          function hilite(text) { if (!ql) return text; var i = text.toLowerCase().indexOf(ql); if (i < 0) return text; return text.slice(0, i) + '<mark class="bg-sky-100 text-sky-700">' + text.slice(i, i + ql.length) + '</mark>' + text.slice(i + ql.length); }
+          matches.forEach(function (it, idx) {
+            var a = document.createElement('div'); a.setAttribute('role', 'option'); a.tabIndex = -1;
+            a.className = 'px-3 py-2 cursor-pointer hover:bg-sky-50 focus:bg-sky-50';
+            var label = it.name + (it.cats ? (' · ' + it.cats.split(',')[0]) : '');
+            a.innerHTML = hilite(label);
+            a.addEventListener('click', function () { if (document.getElementById('q')) document.getElementById('q').value = it.name; syncHeader(it.name); applyFilter(); box.classList.add('hidden'); });
+            list.appendChild(a);
+          });
+          box.appendChild(list);
+          return list;
+        }
+        function showSuggest(input, val) {
+          var v = (val || '').trim().toLowerCase();
+          var box = attachSuggestContainer(input);
+          if (!v) { box.classList.add('hidden'); box.innerHTML = ''; return; }
+          var matches = index.filter(function (it) { return it.name.toLowerCase().includes(v) || it.cats.toLowerCase().includes(v); }).slice(0, 8);
+          box.innerHTML = '';
+          if (matches.length === 0) { var empty = document.createElement('div'); empty.className = 'px-3 py-2 text-sm text-gray-500'; empty.textContent = 'No results'; box.appendChild(empty); box.classList.remove('hidden'); return; }
+          var list = renderSuggestList(box, matches, v);
+          var active = -1;
+          function setActive(i) {
+            var items = Array.from(list.children);
+            items.forEach(function (el, idx) { el.classList.toggle('bg-sky-100', idx === i); });
+            active = i;
+          }
+          input.onkeydown = function (e) {
+            var items = Array.from(list.children);
+            if (e.key === 'ArrowDown') { e.preventDefault(); setActive((active + 1) % items.length); items[active].focus(); }
+            else if (e.key === 'ArrowUp') { e.preventDefault(); setActive((active - 1 + items.length) % items.length); items[active].focus(); }
+            else if (e.key === 'Enter') { if (active >= 0) { items[active].click(); } }
+            else if (e.key === 'Escape') { box.classList.add('hidden'); }
+          };
+          box.classList.remove('hidden');
+          // Add clear button on the right side of input
+          if (!input.parentElement.querySelector('.ow-clear')) {
+            var clr = document.createElement('button'); clr.type = 'button'; clr.className = 'ow-clear absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-sky-600'; clr.innerHTML = '&times;';
+            clr.addEventListener('click', function () { input.value = ''; syncHeader(''); applyFilter(); box.classList.add('hidden'); saveFilters(''); });
+            input.parentElement.appendChild(clr);
+          }
+        }
+        // build category pills
+        var catSet = new Set();
+        document.querySelectorAll('article.group').forEach(function (card) { (card.dataset.cat || '').split(',').forEach(function (c) { if (c.trim()) catSet.add(c.trim()); }); });
+        var list = document.getElementById('cat-list');
+        var pillMap = {};
+        catSet.forEach(function (c) { var b = document.createElement('button'); b.className = 'px-3 py-1 rounded-full border'; b.textContent = c; pillMap[c] = b; b.addEventListener('click', function () { if (selectedCats.has(c)) { selectedCats.delete(c); b.classList.remove('bg-sky-600', 'text-white'); } else { selectedCats.add(c); b.classList.add('bg-sky-600', 'text-white'); } applyFilter(); saveFilters(); }); list.appendChild(b); });
+        // apply URL query
+        try { var params = new URLSearchParams(location.search); var q = params.get('q'); if (q) { qInput.value = q; } } catch (e) { }
+        // load category and price filters from storage
+        var saved = loadFilters();
+        if (saved) {
+          if (Array.isArray(saved.cats)) {
+            saved.cats.forEach(function (c) { selectedCats.add(c); if (pillMap[c]) pillMap[c].classList.add('bg-sky-600', 'text-white'); });
+          }
+          if (saved.q && qInput) { qInput.value = saved.q; syncHeader(saved.q); }
+        }
+        // after categories applied, try category-specific record again
+        try {
+          var rawCat = localStorage.getItem(filtersKey());
+          if (rawCat) {
+            var dat2 = JSON.parse(rawCat); if (dat2 && typeof dat2.priceMax === 'number') { range.value = String(dat2.priceMax); updateLabel(); }
+            if (dat2.q && qInput) { qInput.value = dat2.q; syncHeader(dat2.q); }
+          }
+        } catch (e) { }
+        var savedSort = localStorage.getItem('shopSort'); if (savedSort && sortSel) { sortSel.value = savedSort; }
+        updateLabel();
+        applyFilter();
+      }
+
+      // init
+      initCartCount();
+      enrichProducts();
+      convertPricesToINR();
+      addCardButtons();
+      addCategoryBadges();
+      addBestSellerRibbons();
+      initFilter();
+      initProductModal();
+      // Floating Back to Top button
+      (function () {
+        var btn = document.createElement('button');
+        btn.id = 'back-to-top';
+        btn.className = 'hidden fixed right-4 bottom-4 z-50 w-10 h-10 rounded-full bg-sky-600 text-white shadow-lg hover:bg-sky-700 flex items-center justify-center';
+        btn.setAttribute('aria-label', 'Back to top');
+        btn.setAttribute('title', 'Back to top');
+        btn.innerHTML = '<i data-lucide="arrow-up"></i>';
+        document.body.appendChild(btn);
+        if (window.lucide) window.lucide.createIcons();
+        btn.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+        window.addEventListener('scroll', function () { var y = window.scrollY || document.documentElement.scrollTop; if (y > 600) { btn.classList.remove('hidden'); } else { btn.classList.add('hidden'); } });
+      })();
+      // Best sellers from salesCounts
+      (function () {
+        var wrap = document.getElementById('best-sellers'); if (!wrap) return;
+        var s = {}; try { s = JSON.parse(localStorage.getItem('salesCounts') || '{}'); } catch (e) { }
+        var cards = Array.from(document.querySelectorAll('article.group'));
+        cards.sort(function (a, b) {
+          var an = (a.querySelector('.p-3 h3')?.textContent || ''); var bn = (b.querySelector('.p-3 h3')?.textContent || '');
+          return (s[bn] || 0) - (s[an] || 0);
+        });
+        cards.slice(0, 4).forEach(function (c) {
+          var img = c.querySelector('img')?.getAttribute('src') || ''; var name = c.querySelector('.p-3 h3')?.textContent || 'Item'; var price = parseInt(c.dataset.priceInr || '0', 10); var count = (s[name] || 0);
+          var a = document.createElement('a'); a.href = 'javascript:void(0)'; a.className = 'block border rounded-lg p-2 hover:shadow';
+          a.innerHTML =
+            '<div class="relative">'
+            + '<img src="' + img + '" class="w-full aspect-square object-cover rounded"/>'
+            + (count > 0 ? '<span class="absolute left-2 top-2 text-[10px] px-1.5 rounded-full bg-sky-600 text-white animate-pulse">+' + count + '</span>' : '')
+            + '</div>'
+            + '<p class="mt-2 text-sm">' + name + '</p><p class="text-sm font-semibold">' + rupee(price) + '</p>';
+          a.addEventListener('click', function (ev) { ev.preventDefault(); /* open modal */ c.querySelector('.relative img')?.click(); });
+          wrap.appendChild(a);
+        });
+      })();
+
+      // simple recommendations
+      (function () {
+        var reco = document.getElementById('reco'); if (!reco) return; var cards = Array.from(document.querySelectorAll('article.group'));
+        // choose top category by frequency
+        var freq = {}; cards.forEach(function (c) { var cat = (c.dataset.cat || '').split(',')[0] || ''; if (!cat) return; freq[cat] = (freq[cat] || 0) + 1; });
+        var topCat = Object.keys(freq).sort(function (a, b) { return (freq[b] || 0) - (freq[a] || 0); })[0] || '';
+        // sort cards by same-category first
+        cards.sort(function (a, b) { var A = ((a.dataset.cat || '').indexOf(topCat) >= 0) ? 0 : 1; var B = ((b.dataset.cat || '').indexOf(topCat) >= 0) ? 0 : 1; return A - B; });
+        for (var i = 0; i < Math.min(8, cards.length); i++) {
+          var c = cards[i]; var img = c.querySelector('img')?.getAttribute('src') || ''; var name = c.querySelector('.p-3 h3')?.textContent || 'Item'; var price = parseInt(c.dataset.priceInr || '0', 10);
+          var a = document.createElement('a'); a.href = 'javascript:void(0)'; a.className = 'block border rounded-lg p-2 hover:shadow'; a.innerHTML = '<img src="' + img + '" class="w-full aspect-square object-cover rounded"/><p class="mt-2 text-sm">' + name + '</p><p class="text-sm font-semibold">' + rupee(price) + '</p>';
+          a.addEventListener('click', function (ev) { ev.preventDefault(); /* open modal for first matching card */ document.querySelector('article.group .relative img')?.click(); });
+          reco.appendChild(a);
+        }
+      })();
+    })();
+  </script>
+</body>
+
+</html>

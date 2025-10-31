@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Outfitwaves - Story</title>
+  <meta name="description" content="Blog story - The Outfitwaves" />
+  <link rel="icon" type="image/jpeg" href="./assets/logo.jpg" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+  <style>
+    .reading-bar { position: fixed; left: 0; top: 0; height: 4px; width: 0; background: linear-gradient(90deg, #0ea5e9, #f43f5e); z-index: 50; }
+    .prose h2, .prose h3 { font-family: 'Playfair Display', ui-serif, Georgia; }
+    .hero-img { filter: drop-shadow(0 20px 40px rgba(0,0,0,.15)); }
+    @media (prefers-reduced-motion: reduce){ .reading-bar{ transition:none !important; } }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-white text-gray-900">
+  <div id="bar" class="reading-bar"></div>
+  <!-- Header -->
+  <header class="border-b bg-white sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex h-16 items-center justify-between">
+        <a href="./index.html" class="flex items-center gap-2 font-semibold text-xl">
+          <img src="./assets/logo.jpg" alt="The Outfitwaves" class="h-12 w-12 rounded-full object-cover" />
+          <span>The Outfitwaves</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-6">
+          <a href="./index.html" class="hover:text-sky-600">Home</a>
+          <a href="./shop.html" class="hover:text-sky-600">Shop</a>
+          <a href="./about.html" class="hover:text-sky-600">About</a>
+          <a href="./blog.html" class="text-sky-600 font-medium">Blog</a>
+          <a href="./contact.html" class="hover:text-sky-600">Contact</a>
+        </nav>
+        <div class="flex items-center gap-3">
+          <button class="p-2 rounded hover:bg-gray-100" aria-label="Account"><i data-lucide="user"></i></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="flex-1">
+    <section class="bg-white">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <a href="./blog.html" class="inline-flex items-center gap-2 text-sm text-sky-700"><i data-lucide="arrow-left"></i> Back to Blog</a>
+        <div class="mt-4 flex items-center gap-3 text-sm text-gray-600">
+          <span id="tag" class="px-2 py-0.5 rounded-full bg-sky-50 text-sky-700"></span>
+          <span id="date"></span>
+          <span>•</span>
+          <span id="read" class="opacity-80"></span>
+        </div>
+        <h1 id="title" class="mt-2 text-3xl md:text-4xl font-extrabold" style="font-family:'Playfair Display', ui-serif, Georgia"></h1>
+        <p id="excerpt" class="mt-2 text-lg text-gray-700"></p>
+        <img id="hero" src="" alt="story" class="mt-6 w-full rounded-2xl hero-img" />
+
+        <article id="content" class="prose prose-slate max-w-none mt-8">
+        </article>
+
+        <div class="mt-10 border-t pt-6 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <img id="authorAvatar" src="./assets/logo.jpg" class="w-10 h-10 rounded-full object-cover" alt="author"/>
+            <div>
+              <p id="author" class="font-medium"></p>
+              <p class="text-sm text-gray-600">The Outfitwaves</p>
+            </div>
+          </div>
+          <a href="./shop.html" class="px-4 py-2 rounded-md border hover-brand">Shop the Look</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="h-px bg-gradient-to-r from-transparent via-black/10 to-transparent"></div>
+  <footer class="border-t bg-[#f7f2ee]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid md:grid-cols-3 gap-8">
+        <div>
+          <div class="flex items-center gap-2 font-semibold text-lg">
+            <img src="./assets/logo.jpg" alt="The Outfitwaves" class="h-12 w-12 rounded-full object-cover" />
+            <span>The Outfitwaves</span>
+          </div>
+          <p class="mt-3 text-sm text-gray-600">Timeless fashion for the modern era. Crafted for comfort, designed for confidence.</p>
+          <p class="mt-2 text-sm text-gray-600">Free shipping, easy returns, and secure checkout.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold">Explore</h4>
+          <ul class="mt-3 space-y-2 text-sm text-gray-700">
+            <li><a class="hover:text-sky-600" href="./shop.html">Shop</a></li>
+            <li><a class="hover:text-sky-600" href="./about.html">About</a></li>
+            <li><a class="hover:text-sky-600" href="./blog.html">Blog</a></li>
+            <li><a class="hover:text-sky-600" href="./contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold">Store Info</h4>
+          <ul class="mt-3 space-y-2 text-sm text-gray-700">
+            <li>Support: support@outfitwaves.example</li>
+            <li>Hours: Mon–Sat, 9am–7pm</li>
+            <li>Location: Mumbai, IN</li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-8 pt-8 border-t text-sm text-gray-600 flex items-center justify-between">
+        <p>&copy; <span id="year"></span> The Outfitwaves. All rights reserved.</p>
+        <div class="flex items-center gap-4">
+          <a href="#" class="hover:text-sky-600">Privacy</a>
+          <a href="#" class="hover:text-sky-600">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      var stories = {
+        trends: {
+          title: 'Top 5 Streetwear Trends',
+          tag: 'Style Guide',
+          date: 'Oct 2025',
+          read: '5 min read',
+          hero: './assets/Rectangle-78.png',
+          excerpt: 'The must-have looks shaping the season and how to style them effortlessly.',
+          author: 'Editorial Team',
+          body: [
+            '<h2>1. Oversized Layers</h2><p>Relaxed fits add movement and confidence. Pair oversized hoodies with tailored bottoms for balance.</p>',
+            '<h2>2. Bold Graphics</h2><p>Statement tees with clean typography or abstract prints elevate everyday outfits.</p>',
+            '<blockquote>Style is the story you tell without saying a word.</blockquote>',
+            '<h2>3. Utility Details</h2><p>Cargo pockets and technical fabrics make looks functional and future-forward.</p>',
+            '<h2>4. Monochrome Moments</h2><p>Head-to-toe tonal outfits create instant polish. Mix textures to avoid flatness.</p>',
+            '<h2>5. Luxe Athleisure</h2><p>Refined joggers, minimal sneakers, and smooth knits keep comfort premium.</p>'
+          ]
+        },
+        behind: {
+          title: 'Behind The Outfitwaves',
+          tag: 'Behind the Brand',
+          date: 'Oct 2025',
+          read: '4 min read',
+          hero: './assets/team-scaled.jpg',
+          excerpt: 'A peek into our design process and the materials that make the difference.',
+          author: 'Himanshi & Team',
+          body: [
+            '<h2>Our Process</h2><p>From sketches to samples, each piece is iterated with feedback from real wearers.</p>',
+            '<h2>Materials that Matter</h2><p>We prioritize soft handfeel, breathability, and easy care—without compromising style.</p>',
+            '<blockquote>Comfort breeds confidence. Confidence changes everything.</blockquote>',
+            '<h2>What Comes Next</h2><p>Expanding inclusive sizing, responsible sourcing, and modular designs you can mix and match.</p>'
+          ]
+        },
+        care: {
+          title: 'Care Guide: Make Clothes Last',
+          tag: 'Care Tips',
+          date: 'Oct 2025',
+          read: '3 min read',
+          hero: './assets/young-middle-eastern-man-scaled.jpg',
+          excerpt: 'Tips to keep your favorites looking fresh season after season.',
+          author: 'Outfitwaves Studio',
+          body: [
+            '<h2>Wash Cool, Dry Gentle</h2><p>Low temps reduce fading and fiber stress. Air-dry when possible.</p>',
+            '<h2>Rotate & Rest</h2><p>Give knits a day off between wears to regain shape.</p>',
+            '<h2>Repair, Don\'t Replace</h2><p>Small fixes—like re-stitching hems—extend lifespan and reduce waste.</p>'
+          ]
+        }
+      };
+
+      function qs(k){ var u=new URL(window.location.href); return u.searchParams.get(k)||''; }
+      var id = qs('id') || 'trends';
+      var s = stories[id] || stories.trends;
+      document.getElementById('title').textContent = s.title;
+      document.getElementById('tag').textContent = s.tag;
+      document.getElementById('date').textContent = s.date;
+      document.getElementById('read').textContent = s.read;
+      document.getElementById('excerpt').textContent = s.excerpt;
+      document.getElementById('hero').src = s.hero;
+      document.getElementById('author').textContent = s.author;
+      document.getElementById('content').innerHTML = s.body.join('');
+      var y = document.getElementById('year'); if(y) y.textContent = new Date().getFullYear();
+
+      // Reading progress bar
+      var bar = document.getElementById('bar');
+      function onScroll(){ var doc = document.documentElement; var max = doc.scrollHeight - doc.clientHeight; var v = (window.scrollY||doc.scrollTop)/Math.max(1,max); bar.style.width = (v*100)+'%'; }
+      window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+      if(window.lucide) window.lucide.createIcons();
+    })();
+  </script>
+</body>
+</html>

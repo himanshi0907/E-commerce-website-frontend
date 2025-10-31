@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Outfitwaves - Home</title>
+  <meta name="description" content="Frontend-only e-commerce homepage" />
+  <link rel="icon" type="image/jpeg" href="./assets/logo.jpg" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+  <style>
+    /* Navbar shrink + hover underline */
+    header.sticky-shrink {
+      transition: height .25s ease, box-shadow .25s ease;
+    }
+
+    header.sticky-shrink.shrunk {
+      box-shadow: 0 6px 16px rgba(0, 0, 0, .06);
+    }
+
+    nav a {
+      position: relative;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -8px;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #f472b6, #60a5fa);
+      border-radius: 9999px;
+      transition: width .25s ease;
+    }
+
+    nav a:hover::after,
+    nav a.text-sky-600::after {
+      width: 70%;
+    }
+
+    /* Full-screen hero + parallax */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero .bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transform: translateY(0);
+      will-change: transform;
+    }
+
+    .hero .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, .55), rgba(0, 0, 0, .35) 50%, rgba(0, 0, 0, .15));
+    }
+
+    .hero .content {
+      position: relative;
+      z-index: 1;
+      color: #ffffff;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, .35);
+    }
+
+    .typewriter {
+      border-right: 2px solid currentColor;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    /* Product card overlay */
+    .p-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: .5rem;
+      padding: .75rem;
+      background: linear-gradient(to top, rgba(0, 0, 0, .55), rgba(0, 0, 0, .0));
+      color: white;
+      opacity: 0;
+      transition: opacity .25s ease;
+    }
+
+    article.group:hover .p-overlay {
+      opacity: 1;
+    }
+
+    .wishlist {
+      position: absolute;
+      right: .5rem;
+      top: .5rem;
+      background: rgba(255, 255, 255, .9);
+      border-radius: 9999px;
+      padding: .4rem;
+      transition: transform .2s ease;
+    }
+
+    .wishlist.active {
+      animation: sparkle .6s ease;
+      color: #ef4444;
+    }
+
+    @keyframes sparkle {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.25);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .add-bounce {
+      animation: addbounce .4s ease;
+    }
+
+    @keyframes addbounce {
+      0% {
+        transform: scale(.98);
+      }
+
+      40% {
+        transform: scale(1.06);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    /* Countdown pulse & urgent shift */
+    .pulse {
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 1
+      }
+
+      50% {
+        transform: scale(1.04);
+        opacity: .95
+      }
+    }
+
+    .urgent {
+      background-color: rgba(244, 63, 94, .18) !important;
+    }
+
+    /* Promo enhancements */
+    .promo { position: relative; overflow: hidden; }
+    .promo .promo-ov { position:absolute; inset:0; background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(190, 24, 93, .10) 35%, rgba(251, 113, 133, .22) 100%); pointer-events:none; }
+    .promo .title { text-shadow: 0 4px 14px rgba(0,0,0,.25); }
+    .promo .count-grid { filter: drop-shadow(0 6px 20px rgba(0,0,0,.12)); }
+    .promo .count-num { font-family: 'Montserrat', ui-sans-serif, system-ui; font-size: 2.25rem; line-height: 1; }
+    @media (min-width: 768px){ .promo .count-num { font-size: 2.75rem; } }
+    .promo-cta { transition: transform .2s ease, box-shadow .3s ease, background-color .2s ease; }
+    .promo-cta:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 12px 30px rgba(0,0,0,.2); }
+    .promo-cta:hover i { transform: translateX(4px); }
+    .promo-cta i { transition: transform .2s ease; }
+    /* entrance */
+    .reveal-left { opacity:0; transform: translateX(-20px); }
+    .reveal-up { opacity:0; transform: translateY(16px); }
+    .in { opacity:1 !important; transform: none !important; transition: opacity .6s ease, transform .6s ease; }
+    /* digit flip animation */
+    .count-num.flip { animation: flip .35s ease; transform-origin: center bottom; }
+    @keyframes flip { 0% { transform: rotateX(0deg); } 50% { transform: rotateX(-55deg); } 100% { transform: rotateX(0deg); } }
+    /* subtle sparkles */
+    .sparkles span { position:absolute; width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,.6); filter: blur(.5px); animation: drift 8s linear infinite; }
+    .sparkles .s1{ left:10%; top:70%; opacity:.4; }
+    .sparkles .s2{ left:30%; top:20%; opacity:.3; animation-duration:10s; }
+    .sparkles .s3{ left:55%; top:85%; opacity:.35; animation-duration:12s; }
+    .sparkles .s4{ left:80%; top:30%; opacity:.25; animation-duration:9s; }
+    @keyframes drift { from { transform: translateY(0) translateX(0); } to { transform: translateY(-40px) translateX(20px); } }
+
+    /* flip-clock visual block */
+    .flipcard { position: relative; border-radius: 12px; padding: .35rem .55rem; background: linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.06)); overflow: hidden; }
+    .flipcard::before { content:""; position:absolute; left:0; right:0; top:50%; height:1px; background: rgba(255,255,255,.25); transform: translateY(-.5px); }
+    .flipcard::after { content:""; position:absolute; inset:0; box-shadow: inset 0 -10px 20px rgba(0,0,0,.08), inset 0 10px 20px rgba(255,255,255,.06); border-radius:12px; }
+
+    /* Reduced motion: tone down sparkles and animations */
+    @media (prefers-reduced-motion: reduce){
+      .sparkles{ display:none; }
+      .promo-cta, .reveal-left, .reveal-up, .count-num { transition:none !important; animation:none !important; }
+    }
+
+    /* Scroll indicator */
+    .scroll-ind {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #0f172a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      opacity: .85
+    }
+
+    /* Testimonials */
+    .t-item {
+      transition: opacity .4s ease;
+    }
+
+    /* Theme toggle (quick) */
+    :root {
+      --brand-prim: #0ea5e9;
+      --brand-sec: #f43f5e;
+    }
+
+    [data-theme="street"] {
+      --brand-prim: #111827;
+      --brand-sec: #22d3ee;
+    }
+
+    [data-theme="chic"] {
+      --brand-prim: #1e293b;
+      --brand-sec: #f59e0b;
+    }
+
+    [data-theme="classic"] {
+      --brand-prim: #0ea5e9;
+      --brand-sec: #ef4444;
+    }
+
+    .hover-brand {
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .hover-brand:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, .08);
+    }
+
+    /* subtle fade-in */
+    .fade-in-up { opacity:0; transform: translateY(12px); animation: fiu .7s ease forwards; }
+    @keyframes fiu { to { opacity:1; transform: translateY(0); } }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col bg-white text-gray-900">
+  <!-- Header -->
+  <header id="topbar" class="border-b bg-white sticky top-0 z-40 sticky-shrink">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex h-16 items-center justify-between">
+        <a href="./index.html" class="flex items-center gap-2 font-semibold text-xl">
+          <img src="./assets/logo.jpg" alt="The Outfitwaves" class="h-12 w-12 rounded-full object-cover" />
+          <span>The Outfitwaves</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-6">
+          <a href="./index.html" class="nav-link text-sky-600 font-medium">Home</a>
+          <a href="./shop.html" class="nav-link hover:text-sky-600">Shop</a>
+          <a href="./about.html" class="nav-link hover:text-sky-600">About</a>
+          <a href="./blog.html" class="nav-link hover:text-sky-600">Blog</a>
+          <a href="./contact.html" class="nav-link hover:text-sky-600">Contact</a>
+        </nav>
+        <div class="flex items-center gap-3">
+          <button class="p-2 rounded hover:bg-gray-100" aria-label="Account"><i data-lucide="user"></i></button>
+          <a href="./cart.html"
+            class="relative inline-flex items-center gap-2 px-3 py-2 rounded-md border hover:bg-gray-50">
+            <i data-lucide="shopping-cart"></i>
+            <span class="sr-only">Cart</span>
+            <span
+              class="ml-1 inline-flex items-center justify-center text-xs px-1.5 min-w-[1.25rem] h-5 rounded-full bg-sky-600 text-white">0</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1" id="main">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="bg" style="background-image:url('./assets/image-105.png')"></div>
+      <div class="overlay"></div>
+      <div class="content max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-10 items-center w-full">
+        <div>
+          <p class="text-white/90 uppercase tracking-wider">Timeless Fashion for the Modern Era</p>
+          <h1 class="mt-2 text-4xl sm:text-6xl font-extrabold leading-tight">
+            <span class="block">MODERN <span id="word-swap" class="text-sky-600">Bold</span></span>
+            <span class="block typewriter" id="typewriter">TRENDSETTER</span>
+          </h1>
+          <p class="mt-4 text-white/90 max-w-xl">Get Street Style Savvy with our edgy and trendy clothing. Shop the
+            latest streetwear and urban fashion.</p>
+          <p class="mt-2 text-white/80 fade-in-up" style="animation-delay:.15s">For those who lead, not follow.</p>
+          <div class="mt-6 flex items-center gap-4">
+            <a href="./shop.html"
+              class="px-5 py-3 rounded-md border border-gray-300 bg-white/70 backdrop-blur hover-brand">Explore More</a>
+            <a href="./shop.html" class="px-5 py-3 rounded-md text-white"
+              style="background: linear-gradient(90deg, var(--brand-sec), var(--brand-prim));">Shop Now</a>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-ind">
+        <i data-lucide="chevrons-down"></i>
+        <span class="text-xs">Scroll</span>
+      </div>
+    </section>
+    <!-- Features strip -->
+    <section class="bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div class="flex flex-col items-center text-center gap-3">
+            <span
+              class="feature-badge w-16 h-16 rounded-full ring-1 ring-gray-300 bg-white shadow-sm flex items-center justify-center text-gray-700">
+              <i data-lucide="truck" class="w-8 h-8"></i>
+            </span>
+            <div>
+              <p class="font-semibold">Free Shipping</p>
+              <p class="text-sm text-gray-500">Free Shipping On All Order</p>
+            </div>
+          </div>
+          <div class="flex flex-col items-center text-center gap-3">
+            <span
+              class="feature-badge w-16 h-16 rounded-full ring-1 ring-gray-300 bg-white shadow-sm flex items-center justify-center text-gray-700">
+              <i data-lucide="headphones" class="w-8 h-8"></i>
+            </span>
+            <div>
+              <p class="font-semibold">Online Support</p>
+              <p class="text-sm text-gray-500">Contact us 24 hr, 7 days</p>
+            </div>
+          </div>
+          <div class="flex flex-col items-center text-center gap-3">
+            <span
+              class="feature-badge w-16 h-16 rounded-full ring-1 ring-gray-300 bg-white shadow-sm flex items-center justify-center text-gray-700">
+              <i data-lucide="badge-dollar-sign" class="w-8 h-8"></i>
+            </span>
+            <div>
+              <p class="font-semibold">Money Guarantee</p>
+              <p class="text-sm text-gray-500">30 Day Money Back</p>
+            </div>
+          </div>
+          <div class="flex flex-col items-center text-center gap-3">
+            <span
+              class="feature-badge w-16 h-16 rounded-full ring-1 ring-gray-300 bg-white shadow-sm flex items-center justify-center text-gray-700">
+              <i data-lucide="shield-check" class="w-8 h-8"></i>
+            </span>
+            <div>
+              <p class="font-semibold">Secure Payment</p>
+              <p class="text-sm text-gray-500">We ensure secure payment</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Category tiles with image backgrounds + color overlays -->
+    <section class="bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+        <div class="grid md:grid-cols-3 gap-6">
+          <!-- Left tall card (pink) -->
+          <div
+            class="relative rounded-2xl p-6 sm:p-8 text-white overflow-hidden min-h-[260px] flex flex-col justify-between bg-center bg-cover"
+            style="background-image:url('./assets/stylish-businessman-scaled.jpg')">
+            <div class="absolute inset-0 bg-gradient-to-b from-pink-600/80 to-rose-500/80"></div>
+            <div class="relative">
+              <h3 class="text-xl font-semibold">Elevated Essentials</h3>
+              <p class="mt-1 text-white/90">Confidence in everyday layers. Effortless, timeless, you.</p>
+            </div>
+            <a href="./shop.html"
+              class="relative mt-5 inline-block bg-white text-pink-600 font-medium px-4 py-2 rounded-md w-max hover-brand">Shop
+              Now</a>
+          </div>
+          <!-- Middle stacked (blue + black) -->
+          <div class="grid gap-6">
+            <div
+              class="relative rounded-2xl p-6 sm:p-8 text-white overflow-hidden min-h-[120px] sm:min-h-[160px] bg-center bg-cover"
+              style="background-image:url('./assets/image-107.png')">
+              <div class="absolute inset-0 bg-sky-700/70"></div>
+              <div class="relative">
+                <h3 class="text-xl font-semibold">Bold Layers</h3>
+                <p class="mt-1 text-white/90">Unapologetically bold. Effortlessly cool.</p>
+              </div>
+              <a href="./shop.html"
+                class="relative mt-4 inline-block bg-white text-sky-700 font-medium px-4 py-2 rounded-md w-max hover-brand">Shop
+                Now</a>
+            </div>
+            <div
+              class="relative rounded-2xl p-6 sm:p-8 text-white overflow-hidden min-h-[120px] sm:min-h-[160px] bg-center bg-cover"
+              style="background-image:url('./assets/Rectangle-5-3.png')">
+              <div class="absolute inset-0 bg-black/70"></div>
+              <div class="relative">
+                <h3 class="text-xl font-semibold">Timeless Staples</h3>
+                <p class="mt-1 text-white/80">Quiet luxury with a streetwise edge.</p>
+              </div>
+              <a href="./shop.html"
+                class="relative mt-4 inline-block bg-white text-gray-900 font-medium px-4 py-2 rounded-md w-max hover-brand">Shop
+                Now</a>
+            </div>
+          </div>
+          <!-- Right tall card (amber) -->
+          <div
+            class="relative rounded-2xl p-6 sm:p-8 text-gray-900 overflow-hidden min-h-[260px] flex flex-col justify-between bg-center bg-cover"
+            style="background-image:url('./assets/three-successful-young-women-concept-for-business-scaled.jpg')">
+            <div class="absolute inset-0 bg-amber-400/80"></div>
+            <div class="relative">
+              <h3 class="text-xl font-semibold">Story-Driven Style</h3>
+              <p class="mt-1">Pieces that speak before you do.</p>
+            </div>
+            <a href="./shop.html"
+              class="relative mt-5 inline-block bg-white text-gray-900 font-medium px-4 py-2 rounded-md w-max">Shop
+              Now</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Best selling products -->
+    <section id="shop" class="bg-white py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+          <h2 class="text-2xl md:text-3xl font-bold">Best selling Clothes</h2>
+          <p class="text-gray-600">Shop versatile fashion perfect for multi‑use spaces</p>
+        </div>
+        <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-6">
+          <!-- Card 1 -->
+          <article class="group border rounded-xl overflow-hidden bg-white relative">
+            <div class="relative aspect-[4/5] overflow-hidden">
+              <img src="./assets/portrait-of-young-handsome-man-scaled.jpg" alt="Men's T-Shirt"
+                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              <button class="wishlist" aria-label="Add to wishlist"><i data-lucide="heart"></i></button>
+              <div class="p-overlay">
+                <div class="text-sm">Stylish & Comfortable Men's T‑Shirts</div>
+                <div class="flex gap-2">
+                  <button class="px-3 py-1.5 text-xs rounded-md bg-white/90 text-gray-900 add-cart">Add to cart</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-3">
+              <h3 class="text-sm font-medium">Stylish & Comfortable Men's T‑Shirts</h3>
+              <p class="text-sm text-gray-700 mt-1">$120.00</p>
+            </div>
+          </article>
+          <!-- Card 2 -->
+          <article class="group border rounded-xl overflow-hidden bg-white relative">
+            <div class="relative aspect-[4/5] overflow-hidden">
+              <img src="./assets/stylists-styling-model-in-low-key-photography-stud-scaled.jpg" alt="Women's Wear"
+                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              <span class="absolute top-2 left-2 text-xs px-2 py-1 rounded bg-rose-600 text-white">-9%</span>
+              <button class="wishlist" aria-label="Add to wishlist"><i data-lucide="heart"></i></button>
+              <div class="p-overlay">
+                <div class="text-sm">Elegant & Chic Women's Wear</div>
+                <div class="flex gap-2">
+                  <button class="px-3 py-1.5 text-xs rounded-md bg-white/90 text-gray-900 add-cart">Add to cart</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-3">
+              <h3 class="text-sm font-medium">Elegant & Chic Women's Wear</h3>
+              <p class="text-xs text-gray-500 line-through">$130.00</p>
+              <p class="text-sm text-gray-700">$118.00</p>
+            </div>
+          </article>
+          <!-- Card 3 -->
+          <article class="group border rounded-xl overflow-hidden bg-white relative">
+            <div class="relative aspect-[4/5] overflow-hidden">
+              <img src="./assets/team-scaled.jpg" alt="Men's Shirts"
+                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              <button class="wishlist" aria-label="Add to wishlist"><i data-lucide="heart"></i></button>
+              <div class="p-overlay">
+                <div class="text-sm">Premium Quality Men's Shirts</div>
+                <div class="flex gap-2">
+                  <button class="px-3 py-1.5 text-xs rounded-md bg-white/90 text-gray-900 add-cart">Add to cart</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-3">
+              <h3 class="text-sm font-medium">Premium Quality Men's Shirts</h3>
+              <p class="text-sm text-gray-700">$150.00</p>
+            </div>
+          </article>
+          <!-- Card 4 -->
+          <article class="group border rounded-xl overflow-hidden bg-white relative">
+            <div class="relative aspect-[4/5] overflow-hidden">
+              <img src="./assets/young-middle-eastern-man-scaled.jpg" alt="Classic & Modern Shirts"
+                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              <span class="absolute top-2 left-2 text-xs px-2 py-1 rounded bg-indigo-600 text-white">-11%</span>
+              <button class="wishlist" aria-label="Add to wishlist"><i data-lucide="heart"></i></button>
+              <div class="p-overlay">
+                <div class="text-sm">Classic & Modern Shirts</div>
+                <div class="flex gap-2">
+                  <button class="px-3 py-1.5 text-xs rounded-md bg-white/90 text-gray-900 add-cart">Add to cart</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-3">
+              <h3 class="text-sm font-medium">Classic & Modern Shirts</h3>
+              <p class="text-xs text-gray-500 line-through">$140.00</p>
+              <p class="text-sm text-gray-700">$124.00</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Promo banner -->
+    <section class="promo bg-pink-600 text-white">
+      <div class="promo-ov"></div>
+      <div class="sparkles pointer-events-none">
+        <span class="s1"></span><span class="s2"></span><span class="s3"></span><span class="s4"></span>
+      </div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 grid md:grid-cols-2 items-center gap-6">
+        <div class="relative reveal-left">
+          <img src="./assets/image-119.png" alt="Offer" class="w-full max-w-md h-72 md:h-80 object-contain object-left rounded-2xl" />
+        </div>
+        <div class="reveal-up" style="transition-delay:.08s">
+          <h3 class="text-3xl font-extrabold title">Flat 30% off<br />limited time offer!</h3>
+          <div class="mt-6 grid grid-cols-4 gap-3 max-w-md count-grid">
+            <div class="bg-white/10 rounded-lg p-3 text-center pulse" id="dd">
+              <div class="count-num font-bold">0</div>
+              <div class="text-xs opacity-90">Days</div>
+            </div>
+            <div class="bg-white/10 rounded-lg p-3 text-center pulse" id="hh">
+              <div class="count-num font-bold">0</div>
+              <div class="text-xs opacity-90">Hours</div>
+            </div>
+            <div class="bg-white/10 rounded-lg p-3 text-center pulse" id="mm">
+              <div class="count-num font-bold">0</div>
+              <div class="text-xs opacity-90">Minutes</div>
+            </div>
+            <div class="bg-white/10 rounded-lg p-3 text-center pulse" id="ss">
+              <div class="count-num font-bold">0</div>
+              <div class="text-xs opacity-90">Seconds</div>
+            </div>
+          </div>
+          <a href="./shop.html"
+            class="mt-6 inline-flex items-center gap-2 px-5 py-3 rounded-full bg-black text-white shadow promo-cta">
+            <span>Buy Now & Save 30%</span>
+            <i data-lucide="arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="bg-white py-12">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h3 class="text-center text-2xl font-bold">What customers say</h3>
+        <div id="testi" class="relative mt-6 overflow-hidden">
+          <div id="t-track" class="flex transition-transform duration-500">
+            <div class="t-item w-full shrink-0 text-center p-6 rounded-2xl border bg-white">“Quality that lasts and
+              styles that fit my life.” <div class="mt-2 text-sm text-gray-600">— Riya S.</div>
+            </div>
+            <div class="t-item w-full shrink-0 text-center p-6 rounded-2xl border bg-white">“Comfort-first pieces I keep
+              reordering.” <div class="mt-2 text-sm text-gray-600">— Neeraj K.</div>
+            </div>
+            <div class="t-item w-full shrink-0 text-center p-6 rounded-2xl border bg-white">“Fast shipping and easy
+              returns sealed the deal.” <div class="mt-2 text-sm text-gray-600">— Aarti P.</div>
+            </div>
+          </div>
+          <div id="t-dots" class="mt-4 flex justify-center gap-2">
+            <button class="w-2 h-2 rounded-full bg-gray-300" data-i="0" aria-label="slide 1"></button>
+            <button class="w-2 h-2 rounded-full bg-gray-300" data-i="1" aria-label="slide 2"></button>
+            <button class="w-2 h-2 rounded-full bg-gray-300" data-i="2" aria-label="slide 3"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="h-px bg-gradient-to-r from-transparent via-black/10 to-transparent"></div>
+
+  <!-- Team spotlight teaser -->
+  <section class="bg-[#f7f2ee] py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div>
+        <h3 class="text-xl font-semibold">Meet the minds behind the movement</h3>
+        <p class="text-gray-700">Get to know the people crafting confidence at The Outfitwaves.</p>
+      </div>
+      <a href="./about.html" class="px-4 py-2 rounded-md border hover-brand bg-white">Explore Our Story</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t bg-[#f7f2ee]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid md:grid-cols-3 gap-8">
+        <div>
+          <div class="flex items-center gap-2 font-semibold text-lg">
+            <img src="./assets/logo.jpg" alt="The Outfitwaves" class="h-12 w-12 rounded-full object-cover" />
+            <span>The Outfitwaves</span>
+          </div>
+          <p class="mt-3 text-sm text-gray-600">Timeless fashion for the modern era. Crafted for comfort, designed for
+            confidence.</p>
+          <p class="mt-2 text-sm text-gray-600">Free shipping, easy returns, and secure checkout.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold">Explore</h4>
+          <ul class="mt-3 space-y-2 text-sm text-gray-700">
+            <li><a class="hover:text-sky-600" href="./shop.html">Shop</a></li>
+            <li><a class="hover:text-sky-600" href="./about.html">About</a></li>
+            <li><a class="hover:text-sky-600" href="./blog.html">Blog</a></li>
+            <li><a class="hover:text-sky-600" href="./contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold">Store Info</h4>
+          <ul class="mt-3 space-y-2 text-sm text-gray-700">
+            <li>Support: support@outfitwaves.example</li>
+            <li>Hours: Mon–Sat, 9am–7pm</li>
+            <li>Location: Mumbai, IN</li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-8 pt-8 border-t text-sm text-gray-600 flex items-center justify-between">
+        <p>&copy; <span id="year"></span> The Outfitwaves. All rights reserved.</p>
+        <div class="flex items-center gap-4">
+          <a href="#" class="hover:text-sky-600">Privacy</a>
+          <a href="#" class="hover:text-sky-600">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./assets/js/main.js"></script>
+  <script>
+    (function () {
+      var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      // Navbar shrink on scroll
+      var topbar = document.getElementById('topbar');
+      function onScroll() { if (!topbar) return; var y = window.scrollY || document.documentElement.scrollTop; topbar.classList.toggle('shrunk', y > 10); var bg = document.querySelector('.hero .bg'); if (bg && !prefersReduced) { bg.style.transform = 'translateY(' + (y * 0.2) + 'px)'; } }
+      window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+      // Typewriter + rotating words
+      var typer = document.getElementById('typewriter');
+      if (typer && !prefersReduced) {
+        var text = 'TRENDSETTER'; typer.textContent = '';
+        var i = 0; var tw = setInterval(function () { typer.textContent = text.slice(0, ++i); if (i >= text.length) clearInterval(tw); }, 60);
+      }
+      var swap = document.getElementById('word-swap');
+      if (swap) { var words = ['Bold', 'Edgy', 'Iconic', 'Savvy']; var wi = 0; setInterval(function () { wi = (wi + 1) % words.length; swap.textContent = words[wi]; }, 2200); }
+
+      // Wishlist + Add to cart interactions
+      var cartBadge = document.querySelector('a[href="./cart.html"] span.bg-sky-600');
+      function bump(el) { el.classList.remove('add-bounce'); void el.offsetWidth; el.classList.add('add-bounce'); setTimeout(function () { el.classList.remove('add-bounce'); }, 450); }
+      document.querySelectorAll('.wishlist').forEach(function (btn) { btn.addEventListener('click', function (e) { e.stopPropagation(); btn.classList.toggle('active'); }); });
+      document.querySelectorAll('.add-cart').forEach(function (btn) { btn.addEventListener('click', function (e) { e.preventDefault(); if (cartBadge) { var n = parseInt(cartBadge.textContent || '0', 10); cartBadge.textContent = (n + 1).toString(); bump(cartBadge.parentElement); } }); });
+
+      // Convert prices to INR in Best selling section (match Shop page)
+      (function () {
+        var RATE = 83; function rupee(n) { return '₹' + n.toLocaleString('en-IN'); }
+        document.querySelectorAll('#shop article.group').forEach(function (card) {
+          var body = card.querySelector('.p-3'); if (!body) return;
+          var oldP = body.querySelector('p.line-through'); if (oldP) {
+            var m = oldP.textContent.match(/([\$₹])\s?([0-9]+(?:\.[0-9]{1,2})?)/);
+            if (m) { var val = parseFloat(m[2]); oldP.textContent = rupee(Math.round(m[1] === '₹' ? val : val * RATE)); }
+          }
+          var priceEl = body.querySelector('p.text-sm.text-gray-700'); if (priceEl) {
+            var txt = priceEl.textContent || ''; var m2 = txt.match(/([\$₹])\s?([0-9]+(?:\.[0-9]{1,2})?)/);
+            if (m2) { var val2 = parseFloat(m2[2]); priceEl.textContent = rupee(Math.round(m2[1] === '₹' ? val2 : val2 * RATE)); }
+          }
+        });
+      })();
+
+      // Wishlist + Add to cart interactions with persisted cart count
+      function getCartCount() { try { return parseInt(localStorage.getItem('cartCount') || '0', 10); } catch (e) { return 0; } }
+      function setCartCount(n) { try { localStorage.setItem('cartCount', String(n)); } catch (e) { } if (cartBadge) { cartBadge.textContent = String(n); } }
+      setCartCount(getCartCount());
+      document.querySelectorAll('.wishlist').forEach(function (btn) { btn.addEventListener('click', function (e) { e.stopPropagation(); btn.classList.toggle('active'); }); });
+      document.querySelectorAll('.add-cart').forEach(function (btn) { btn.addEventListener('click', function (e) { e.preventDefault(); var n = getCartCount() + 1; setCartCount(n); if (cartBadge) bump(cartBadge.parentElement); }); });
+
+      // Countdown to 48 hours from now with flip animation
+      var tgt = Date.now() + 48 * 60 * 60 * 1000; var dd = document.getElementById('dd'), hh = document.getElementById('hh'), mm = document.getElementById('mm'), ss = document.getElementById('ss');
+      function put(el, val){ if(!el) return; var num = el.querySelector('.count-num'); if(!num){ num = el.querySelector('.font-bold'); }
+        var next = val.toString().padStart(2,'0'); if(num && num.textContent !== next){ num.textContent = next; if(num.classList){ num.classList.remove('flip'); void num.offsetWidth; num.classList.add('flip'); } } }
+      function tick(){ var now=Date.now(); var d=Math.max(0, Math.floor((tgt-now)/1000)); var days=Math.floor(d/86400); var hours=Math.floor((d%86400)/3600); var mins=Math.floor((d%3600)/60); var secs=d%60;
+        put(dd, days); put(hh, hours); put(mm, mins); put(ss, secs);
+        var urgent = d < 60; [dd,hh,mm,ss].forEach(function(el){ if(!el) return; el.classList.toggle('urgent', urgent); });
+        requestAnimationFrame(tick);
+      }
+      if(dd && hh && mm && ss) tick();
+
+      // Testimonials auto-rotate with pause-on-hover
+      (function () {
+        var wrap = document.getElementById('testi'); if (!wrap) return; var items = [].slice.call(wrap.querySelectorAll('.t-item')); if (items.length < 2) return; var i = 0, hovering = false; function show(n) { items.forEach(function (el, idx) { if (idx === n) { el.classList.remove('hidden'); el.style.opacity = 1; } else { el.classList.add('hidden'); el.style.opacity = 0; } }); }
+        wrap.addEventListener('mouseenter', function () { hovering = true; }); wrap.addEventListener('mouseleave', function () { hovering = false; });
+        show(0); setInterval(function () { if (!hovering) { i = (i + 1) % items.length; show(i); } }, 5000);
+      })();
+
+      // Promo entrance reveal
+      (function(){ var els=[].slice.call(document.querySelectorAll('.reveal-left, .reveal-up')); if(!els.length) return; if(!('IntersectionObserver' in window)){ els.forEach(function(e){ e.classList.add('in'); }); return; } var io=new IntersectionObserver(function(ents){ ents.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } }); }, {threshold:.2}); els.forEach(function(e){ io.observe(e); }); })();
+
+      // Theme toggle
+      var themeSel = document.getElementById('theme-toggle'); if (themeSel) { themeSel.addEventListener('change', function () { document.documentElement.setAttribute('data-theme', themeSel.value); }); }
+
+      // Render icons
+      if (window.lucide) window.lucide.createIcons();
+
+      // Recently viewed: capture clicks on homepage best-seller cards and render list
+      function getViewed(){ try{ return JSON.parse(localStorage.getItem('recentViewed')||'[]'); }catch(e){ return []; } }
+      function setViewed(list){ try{ localStorage.setItem('recentViewed', JSON.stringify(list.slice(0,6))); }catch(e){} }
+      document.querySelectorAll('#shop article.group').forEach(function(card){
+        var img = card.querySelector('img'); var title = card.querySelector('h3'); var priceEl = card.querySelector('.p-3 p.text-sm.text-gray-700');
+        var price = priceEl ? priceEl.textContent.trim() : '';
+        function save(){ var item={ name: (title?title.textContent.trim():'Item'), img: (img?img.getAttribute('src'):''), price: price };
+          var list = getViewed().filter(function(it){ return it.name !== item.name; }); list.unshift(item); setViewed(list); renderRecent(); }
+        card.addEventListener('click', function(e){ if(e.target.closest('.add-cart')||e.target.closest('.wishlist')) return; save(); });
+      });
+      function renderRecent(){ var ul = document.getElementById('recent-list'); if(!ul) return; var list=getViewed(); ul.innerHTML=''; list.forEach(function(it){ var li=document.createElement('li'); li.className='flex items-center gap-3 p-2 rounded-xl border';
+          li.innerHTML='<img class="w-12 h-12 rounded object-cover" src="'+it.img+'" alt="thumb"/>\
+          <div><p class="text-sm font-medium">'+it.name+'</p><p class="text-sm text-gray-600">'+it.price+'</p></div>'; ul.appendChild(li); }); }
+      renderRecent();
+    })();
+  </script>
+</body>
+
+</html>

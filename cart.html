@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Outfitwaves - Cart & Checkout</title>
+  <meta name="description" content="Cart and checkout" />
+  <link rel="icon" type="image/jpeg" href="./assets/logo.jpg" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+  <style>
+    .pulse { animation: pulse 0.9s ease-in-out 3; }
+    @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.05)} }
+    .checkmark { width: 84px;height: 84px; border-radius: 50%; background: #0ea5e9; display:flex;align-items:center;justify-content:center; color:#fff; }
+    .check { width:36px; height:18px; border-left:4px solid #fff; border-bottom:4px solid #fff; transform: rotate(-45deg); }
+    .fade-in-up { opacity:0; transform: translateY(12px); animation: fadeUp .6s ease forwards; }
+    @keyframes fadeUp { to { opacity:1; transform: translateY(0); } }
+    .toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#0ea5e9;color:#fff;padding:10px 14px;border-radius:8px;box-shadow:0 10px 24px rgba(0,0,0,.12);opacity:0;pointer-events:none}
+    .toast.show{animation:toastIn .2s ease forwards}
+    @keyframes toastIn{to{opacity:1;}}
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-white text-gray-900">
+  <!-- Header -->
+  <header class="border-b bg-white sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex h-16 items-center justify-between">
+        <a href="./index.html" class="flex items-center gap-2 font-semibold text-xl">
+          <img src="./assets/logo.jpg" alt="The Outfitwaves" class="h-12 w-12 rounded-full object-cover" />
+          <span>The Outfitwaves</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-6">
+          <a href="./index.html" class="hover:text-sky-600">Home</a>
+          <a href="./shop.html" class="hover:text-sky-600">Shop</a>
+          <a href="./about.html" class="hover:text-sky-600">About</a>
+          <a href="./blog.html" class="hover:text-sky-600">Blog</a>
+          <a href="./contact.html" class="hover:text-sky-600">Contact</a>
+        </nav>
+        <div class="flex items-center gap-3">
+          <a href="./cart.html" class="relative inline-flex items-center gap-2 px-3 py-2 rounded-md border hover:bg-gray-50">
+            <i data-lucide="shopping-cart"></i>
+            <span class="sr-only">Cart</span>
+            <span id="cart-count" class="ml-1 inline-flex items-center justify-center text-xs px-1.5 min-w-[1.25rem] h-5 rounded-full bg-sky-600 text-white">0</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1">
+    <section class="bg-gradient-to-b from-gray-100 to-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <h1 class="text-3xl md:text-4xl font-extrabold">Your Cart</h1>
+        <p class="mt-2 text-gray-600 max-w-2xl">Review your items and place your order. You'll see a confirmation like Amazon after you place the order.</p>
+      </div>
+    </section>
+
+    <section class="py-10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-3 gap-8">
+        <!-- Summary -->
+        <div class="lg:col-span-2 space-y-4">
+          <div class="border rounded-xl bg-white p-6">
+            <div class="flex items-center justify-between">
+              <h2 class="font-semibold text-lg">Items</h2>
+              <button id="clear-cart" class="text-sm px-3 py-1 rounded-md border hover-brand">Clear Cart</button>
+            </div>
+            <p class="mt-2 text-gray-600">Items in cart: <span id="items-count" class="font-semibold">0</span></p>
+            <div id="items-list" class="mt-4 space-y-3"></div>
+            <div id="empty-cart" class="hidden mt-6 p-6 rounded-lg border text-center">
+              <div class="text-5xl mb-2">😔</div>
+              <p class="font-semibold">Your cart is empty</p>
+              <p class="text-sm text-gray-600">Add some items to place your order.</p>
+              <a href="./shop.html" class="mt-4 inline-block px-4 py-2 rounded-md bg-sky-600 text-white hover-brand">Browse products</a>
+            </div>
+          </div>
+          <div class="border rounded-xl bg-white p-6">
+            <h2 class="font-semibold text-lg">Shipping Address</h2>
+            <div class="mt-4 grid sm:grid-cols-2 gap-4">
+              <div>
+                <input id="fullName" class="border rounded-md px-3 py-2 w-full" placeholder="Full Name" />
+                <p id="err-fullName" class="hidden text-sm text-rose-600 mt-1">Please enter your full name</p>
+              </div>
+              <div>
+                <input id="phone" class="border rounded-md px-3 py-2 w-full" placeholder="Phone (10 digits)" />
+                <p id="err-phone" class="hidden text-sm text-rose-600 mt-1">Enter a valid 10-digit phone</p>
+              </div>
+              <div class="sm:col-span-2">
+                <input id="address" class="border rounded-md px-3 py-2 w-full" placeholder="Address Line" />
+                <p id="err-address" class="hidden text-sm text-rose-600 mt-1">Address is required</p>
+              </div>
+              <div>
+                <input id="city" class="border rounded-md px-3 py-2 w-full" placeholder="City" />
+                <p id="err-city" class="hidden text-sm text-rose-600 mt-1">City is required</p>
+              </div>
+              <div>
+                <input id="pincode" class="border rounded-md px-3 py-2 w-full" placeholder="Pincode (6 digits)" />
+                <p id="err-pincode" class="hidden text-sm text-rose-600 mt-1">Enter a valid 6-digit pincode</p>
+              </div>
+            </div>
+          </div>
+          <div class="border rounded-xl bg-white p-6">
+            <h2 class="font-semibold text-lg">Payment Method</h2>
+            <div class="mt-3 grid sm:grid-cols-3 gap-3 text-sm">
+              <label class="flex items-center gap-2 border rounded-md px-3 py-2 cursor-pointer"><input type="radio" name="pay" id="pay-cod" class="accent-sky-600"/> <span>Cash on Delivery</span></label>
+              <label class="flex items-center gap-2 border rounded-md px-3 py-2 cursor-pointer"><input type="radio" name="pay" id="pay-upi" class="accent-sky-600"/> <span>UPI</span></label>
+              <label class="flex items-center gap-2 border rounded-md px-3 py-2 cursor-pointer"><input type="radio" name="pay" id="pay-card" class="accent-sky-600"/> <span>Card</span></label>
+            </div>
+            <p id="err-pay" class="hidden text-sm text-rose-600 mt-2">Select a payment method</p>
+          </div>
+        </div>
+
+        <!-- Order box -->
+        <aside class="space-y-4">
+          <div class="border rounded-xl bg-white p-6">
+            <h3 class="font-semibold">Order Summary</h3>
+            <dl class="mt-4 space-y-2 text-sm">
+              <div class="flex justify-between"><dt>Items</dt><dd id="sum-items">0</dd></div>
+              <div class="flex justify-between"><dt>Subtotal</dt><dd id="sum-subtotal">₹0</dd></div>
+              <div class="flex justify-between"><dt>Discount</dt><dd id="sum-discount">- ₹0</dd></div>
+              <div class="flex justify-between"><dt>Shipping</dt><dd id="sum-shipping">₹0</dd></div>
+              <div class="flex justify-between font-semibold text-base"><dt>Total</dt><dd id="sum-total">₹0</dd></div>
+            </dl>
+            <div class="mt-4 space-y-3">
+              <div>
+                <label class="text-sm font-medium">Coupon</label>
+                <div class="mt-1 flex gap-2">
+                  <input id="coupon-input" class="flex-1 px-3 py-2 border rounded-md" placeholder="Enter code (e.g., OUTFIT10, OUTFIT200, FREESHIP)"/>
+                  <button id="coupon-apply" class="px-3 py-2 rounded-md border hover-brand">Apply</button>
+                  <button id="coupon-clear" class="px-3 py-2 rounded-md border hover-brand">Clear</button>
+                </div>
+                <p id="coupon-msg" class="text-xs mt-1 text-gray-600"></p>
+              </div>
+              <div>
+                <label class="text-sm font-medium">Shipping</label>
+                <div class="mt-1 grid gap-2 text-sm">
+                  <label class="flex items-center gap-2 border rounded-md px-3 py-2 cursor-pointer"><input type="radio" name="ship" id="ship-standard" class="accent-sky-600"/> <span>Standard (3–5 days) — ₹0</span></label>
+                  <label class="flex items-center gap-2 border rounded-md px-3 py-2 cursor-pointer"><input type="radio" name="ship" id="ship-express" class="accent-sky-600"/> <span>Express (2 days) — ₹99</span></label>
+                  <label class="flex items-center gap-2 border rounded-md px-3 py-2 cursor-pointer"><input type="radio" name="ship" id="ship-priority" class="accent-sky-600"/> <span>Priority (Next day) — ₹199</span></label>
+                </div>
+              </div>
+            </div>
+            <button id="place-order" class="mt-5 w-full px-4 py-2 rounded-md bg-sky-600 text-white btn-elevate hover-brand">Place Order</button>
+            <a href="./shop.html" class="mt-3 inline-block text-sky-700 hover:text-sky-800">Continue shopping</a>
+          </div>
+
+          <div id="confirm-box" class="hidden border rounded-xl bg-white p-6 text-center">
+            <div id="lottie-success" class="mx-auto" style="width:120px;height:120px"></div>
+            <h3 class="mt-4 text-xl font-bold fade-in-up">Order Confirmed</h3>
+            <p id="order-id" class="mt-1 text-gray-600 fade-in-up" style="animation-delay:.1s"></p>
+            <p class="mt-1 text-gray-600 fade-in-up" style="animation-delay:.15s">Thank you for shopping with The Outfitwaves.</p>
+            <a href="./index.html" class="mt-5 inline-block px-4 py-2 rounded-md bg-sky-600 text-white hover-brand">Go to Home</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <!-- Full-screen confirmation overlay -->
+  <div id="overlay-confirm" class="hidden fixed inset-0 z-50 bg-sky-600/95 text-white flex items-center justify-center p-6">
+    <div class="max-w-md w-full text-center overlay-show">
+      <div id="lottie-fs" class="mx-auto" style="width:140px;height:140px"></div>
+      <h2 class="mt-5 text-2xl md:text-3xl font-extrabold">Thank you for your order!</h2>
+      <p id="overlay-order-id" class="mt-2 text-white/90">Order ID: </p>
+      <a href="./index.html" class="mt-6 inline-block px-5 py-2.5 rounded-md bg-white text-sky-700 font-medium hover:bg-gray-100">Go to Home</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t bg-[#f7f2ee]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid md:grid-cols-3 gap-8">
+        <div>
+          <div class="flex items-center gap-2 font-semibold text-lg">
+            <img src="./assets/logo.jpg" alt="The Outfitwaves" class="h-12 w-12 rounded-full object-cover" />
+            <span>The Outfitwaves</span>
+          </div>
+          <p class="mt-3 text-sm text-gray-600">Timeless fashion for the modern era. Crafted for comfort, designed for confidence.</p>
+          <p class="mt-2 text-sm text-gray-600">Free shipping, easy returns, and secure checkout.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold">Explore</h4>
+          <ul class="mt-3 space-y-2 text-sm text-gray-700">
+            <li><a class="hover:text-sky-600" href="./shop.html">Shop</a></li>
+            <li><a class="hover:text-sky-600" href="./about.html">About</a></li>
+            <li><a class="hover:text-sky-600" href="./blog.html">Blog</a></li>
+            <li><a class="hover:text-sky-600" href="./contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold">Store Info</h4>
+          <ul class="mt-3 space-y-2 text-sm text-gray-700">
+            <li>Support: support@outfitwaves.example</li>
+            <li>Hours: Mon–Sat, 9am–7pm</li>
+            <li>Location: Mumbai, IN</li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-8 pt-8 border-t text-sm text-gray-600 flex items-center justify-between">
+        <p>&copy; <span id="year"></span> The Outfitwaves. All rights reserved.</p>
+        <div class="flex items-center gap-4">
+          <a href="#" class="hover:text-sky-600">Privacy</a>
+          <a href="#" class="hover:text-sky-600">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./assets/js/main.js"></script>
+  <script>
+    (function(){
+      function getCount(){ return parseInt(localStorage.getItem('cartCount')||'0',10); }
+      function setCount(n){ localStorage.setItem('cartCount', String(n)); var el = document.getElementById('cart-count'); if(el){ el.textContent = n; } }
+      function formatINR(n){ return '₹' + n.toLocaleString('en-IN'); }
+      function getCart(){ try{ return JSON.parse(localStorage.getItem('cartItems')||'[]'); }catch(e){ return []; } }
+      function setCart(items){ localStorage.setItem('cartItems', JSON.stringify(items)); }
+      function showToast(msg){ var t=document.getElementById('toast'); if(!t){ t=document.createElement('div'); t.id='toast'; t.className='toast'; document.body.appendChild(t);} t.textContent=msg; t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); }, 1600); }
+      function getCoupon(){ return localStorage.getItem('coupon')||''; }
+      function setCoupon(v){ localStorage.setItem('coupon', v||''); }
+      function getShip(){ return localStorage.getItem('shipMethod')||'standard'; }
+      function setShip(v){ localStorage.setItem('shipMethod', v||'standard'); }
+
+      // render items
+      function render(){
+        var items = getCart();
+        var count = items.reduce(function(s,it){ return s + (it.qty||1); }, 0);
+        setCount(count);
+        document.getElementById('items-count').textContent = count;
+        var list = document.getElementById('items-list');
+        list.innerHTML = '';
+        var subtotal = 0;
+        items.forEach(function(it, idx){
+          var unit = it.priceInr||0; var qty = it.qty||1; var line = unit*qty;
+          var li = document.createElement('div');
+          li.className = 'flex items-center gap-4 p-3 rounded-lg border';
+          li.innerHTML = '<img src="'+(it.img||'./assets/Rectangle-5.png')+'" class="w-16 h-16 rounded object-cover"/>'+
+                         '<div class="flex-1">'+
+                         '<p class="font-medium">'+(it.name||'Item')+'</p>'+
+                         '<p class="text-sm text-gray-600">Unit: '+formatINR(unit)+'</p>'+
+                         '</div>'+
+                         '<div class="flex items-center gap-2">'+
+                         '<button data-dec="'+idx+'" class="w-8 h-8 border rounded" title="Decrease">-</button>'+
+                         '<span class="min-w-[2ch] text-center">'+qty+'</span>'+
+                         '<button data-inc="'+idx+'" class="w-8 h-8 border rounded" title="Increase">+</button>'+
+                         '</div>'+
+                         '<div class="w-24 text-right font-medium">'+formatINR(line)+'</div>'+
+                         '<button data-rem="'+idx+'" class="ml-4 px-2 py-1 text-sm border rounded hover-brand" title="Remove">Remove</button>';
+          list.appendChild(li);
+          subtotal += line;
+        });
+        document.getElementById('sum-items').textContent = count + ' item' + (count===1?'':'s');
+        document.getElementById('sum-subtotal').textContent = formatINR(subtotal);
+
+        // coupon and shipping computation
+        var coupon = getCoupon();
+        var discount = 0;
+        if(coupon === 'OUTFIT10'){ discount = Math.round(subtotal * 0.10); }
+        else if(coupon === 'OUTFIT200'){ discount = 200; }
+        else if(coupon === 'FREESHIP'){ discount = 0; }
+        discount = Math.min(discount, subtotal);
+        document.getElementById('sum-discount').textContent = '- ' + formatINR(discount);
+
+        var ship = getShip();
+        var shipCost = ship==='express' ? 99 : ship==='priority' ? 199 : 0;
+        if(coupon === 'FREESHIP') shipCost = 0;
+        document.getElementById('sum-shipping').textContent = formatINR(shipCost);
+
+        var total = Math.max(0, subtotal - discount) + shipCost;
+        document.getElementById('sum-total').textContent = formatINR(total);
+
+        list.addEventListener('click', function(ev){
+          var t = ev.target;
+          var items = getCart();
+          if(t.dataset.inc!==undefined){ var i=+t.dataset.inc; items[i].qty = (items[i].qty||1)+1; setCart(items); render(); }
+          if(t.dataset.dec!==undefined){ var i=+t.dataset.dec; items[i].qty = Math.max(1,(items[i].qty||1)-1); setCart(items); render(); }
+          if(t.dataset.rem!==undefined){ var i=+t.dataset.rem; items.splice(i,1); setCart(items); render(); }
+          if(t.dataset.rem!==undefined){ var i=+t.dataset.rem; items.splice(i,1); setCart(items); showToast('Item removed'); render(); }
+        }, { once:true });
+
+        // Empty state and CTA disable
+        var empty = document.getElementById('empty-cart');
+        var place = document.getElementById('place-order');
+        if(empty && place){
+          var isEmpty = count === 0;
+          empty.classList.toggle('hidden', !isEmpty);
+          place.disabled = isEmpty;
+          place.classList.toggle('opacity-50', isEmpty);
+        }
+        // handle clear cart button
+        var clearBtn = document.getElementById('clear-cart');
+        if(clearBtn){
+          clearBtn.disabled = count===0;
+          clearBtn.classList.toggle('opacity-50', count===0);
+        }
+
+        // reflect persisted coupon and shipping in UI
+        var ci=document.getElementById('coupon-input'); var cm=document.getElementById('coupon-msg');
+        if(ci){ ci.value = coupon; cm.textContent = coupon ? ('Applied: '+coupon) : ''; }
+        var s=getShip(); var r = document.getElementById('ship-'+s); if(r) r.checked = true; 
+      }
+
+      // place order flow
+      var btn = document.getElementById('place-order');
+      var box = document.getElementById('confirm-box');
+      var orderIdEl = document.getElementById('order-id');
+      // Address persistence
+      function getAddress(){ try{ return JSON.parse(localStorage.getItem('addressInfo')||'{}'); }catch(e){ return {}; } }
+      function setAddress(obj){ localStorage.setItem('addressInfo', JSON.stringify(obj||{})); }
+      function loadAddress(){ var a=getAddress();
+        if(a.fullName) document.getElementById('fullName').value=a.fullName;
+        if(a.phone) document.getElementById('phone').value=a.phone;
+        if(a.address) document.getElementById('address').value=a.address;
+        if(a.city) document.getElementById('city').value=a.city;
+        if(a.pincode) document.getElementById('pincode').value=a.pincode;
+      }
+      ['fullName','phone','address','city','pincode'].forEach(function(id){
+        var el = null; setTimeout(function(){ el=document.getElementById(id); if(!el) return; el.addEventListener('input', function(){
+          var a=getAddress(); a[id]=el.value; setAddress(a);
+        }); },0);
+      });
+
+      function validate(){
+        var ok = true;
+        function show(id, cond){ var el = document.getElementById(id); el.classList.toggle('hidden', cond); if(!cond && ok){ el.previousElementSibling && el.previousElementSibling.scrollIntoView({behavior:'smooth', block:'center'});} ok = ok && cond; }
+        var fullName = document.getElementById('fullName').value.trim();
+        var phone    = document.getElementById('phone').value.trim();
+        var address  = document.getElementById('address').value.trim();
+        var city     = document.getElementById('city').value.trim();
+        var pin      = document.getElementById('pincode').value.trim();
+        var paySel   = document.getElementById('pay-cod').checked || document.getElementById('pay-upi').checked || document.getElementById('pay-card').checked;
+        show('err-fullName', fullName.length>1);
+        show('err-phone', /^\d{10}$/.test(phone));
+        show('err-address', address.length>4);
+        show('err-city', city.length>2);
+        show('err-pincode', /^\d{6}$/.test(pin));
+        var payErr = document.getElementById('err-pay'); payErr.classList.toggle('hidden', paySel);
+        ok = ok && paySel;
+        return ok;
+      }
+
+      // persist selected payment method
+      function getPay(){ return localStorage.getItem('paymentMethod')||''; }
+      function setPay(v){ localStorage.setItem('paymentMethod', v||''); }
+      function loadPay(){ var v=getPay(); if(!v) return; var el=document.getElementById('pay-'+v); if(el) el.checked=true; }
+      ['cod','upi','card'].forEach(function(k){ var el=document.getElementById('pay-'+k); if(el){ el.addEventListener('change', function(){ if(el.checked) setPay(k); }); } });
+      // coupon interactions
+      var cInput=document.getElementById('coupon-input'); var cApply=document.getElementById('coupon-apply'); var cClear=document.getElementById('coupon-clear'); var cMsg=document.getElementById('coupon-msg');
+      function applyCoupon(){ var code=(cInput.value||'').trim().toUpperCase();
+        if(['OUTFIT10','OUTFIT200','FREESHIP'].indexOf(code)===-1){ cMsg.textContent='Invalid code'; showToast('Invalid coupon'); return; }
+        setCoupon(code); cMsg.textContent='Applied: '+code; showToast('Coupon applied'); render(); }
+      if(cApply) cApply.addEventListener('click', applyCoupon);
+      if(cClear) cClear.addEventListener('click', function(){ setCoupon(''); cInput.value=''; cMsg.textContent=''; showToast('Coupon cleared'); render(); });
+      // shipping selection
+      ['standard','express','priority'].forEach(function(k){ var el=document.getElementById('ship-'+k); if(el){ el.addEventListener('change', function(){ if(el.checked){ setShip(k); render(); } }); }});
+
+      btn.addEventListener('click', function(){
+        // Block if cart empty
+        var itemsNow = getCart();
+        if(!itemsNow || itemsNow.length === 0) { render(); return; }
+        if(!validate()) return;
+        btn.disabled = true;
+        btn.classList.add('opacity-70');
+        btn.textContent = 'Placing order…';
+        setTimeout(function(){
+          var oid = 'OW' + Date.now().toString().slice(-8);
+          orderIdEl.textContent = 'Order ID: ' + oid;
+          box.classList.remove('hidden');
+          // lottie success
+          if(window.lottie){
+            lottie.loadAnimation({
+              container: document.getElementById('lottie-success'),
+              renderer: 'svg', loop: false, autoplay: true,
+              path: 'https://lottie.host/1a3f4a1e-ow-success.json'
+            });
+          }
+          // reset cart
+          setCount(0); setCart([]); setPay('');
+          render();
+          box.scrollIntoView({behavior:'smooth', block:'center'});
+
+          // full-screen overlay
+          var ov = document.getElementById('overlay-confirm');
+          var oidEl = document.getElementById('overlay-order-id');
+          if(ov && oidEl){
+            oidEl.textContent = 'Order ID: ' + oid;
+            ov.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+            if(window.lottie){
+              lottie.loadAnimation({
+                container: document.getElementById('lottie-fs'),
+                renderer: 'svg', loop: false, autoplay: true,
+                path: 'https://lottie.host/1a3f4a1e-ow-success.json'
+              });
+            }
+          }
+        }, 900);
+      });
+
+      // init
+      loadAddress();
+      loadPay();
+      render();
+
+      // clear cart handler
+      var clearBtn = document.getElementById('clear-cart');
+      if(clearBtn){ clearBtn.addEventListener('click', function(){ setCart([]); setCount(0); showToast('Cart cleared'); render(); }); }
+    })();
+  </script>
+</body>
+</html>
