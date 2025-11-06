@@ -414,8 +414,17 @@
 </head>
 
 <body id="top" class="min-h-screen flex flex-col bg-white text-gray-900 scroll-smooth">
+  <!-- Top Banner -->
+  <div class="bg-gradient-to-r from-pink-50 to-blue-50 py-2 text-center text-sm">
+    <p>Discover trendy fashion at The Outfitwaves - Your one-stop destination for stylish clothing and accessories. 
+      <a href="https://himanshi0907.github.io/E-commerce-website-frontend/" target="_blank" class="font-semibold text-pink-600 hover:underline ml-1">
+        View Live Demo on GitHub Pages <span class="inline-block">→</span>
+      </a>
+    </p>
+  </div>
+
   <!-- Header -->
-  <header class="border-b bg-white sticky top-0 z-40">
+  <header class="border-b bg-white sticky top-0 z-30">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex h-16 items-center justify-between">
         <a href="./index.html" class="flex items-center gap-2 font-semibold text-xl">
@@ -528,8 +537,6 @@
               <i data-lucide="badge-check" class="w-5 h-5 text-sky-600 anim-slide"></i>
               <p class="text-gray-700">Delightful service: fast shipping, easy returns</p>
             </div>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -667,162 +674,59 @@
               <p class="text-sm text-gray-600">Customer Success</p>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <div class="h-px bg-gradient-to-r from-transparent via-black/10 to-transparent"></div>
-
+  
+  
   <!-- Footer -->
-  <footer class="border-t bg-[#f7f2ee]">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div class="grid md:grid-cols-3 gap-8">
-        <div>
-          <div class="flex items-center gap-2 font-semibold text-lg">
-            <img src="./assets/logo.jpg" alt="The Outfitwaves" class="h-14 w-14 rounded-full object-cover" />
-            <span>The Outfitwaves</span>
+  <footer class="bg-gray-900 text-white py-8 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="col-span-1 md:col-span-2">
+          <h3 class="text-xl font-bold mb-4">The Outfitwaves</h3>
+          <p class="text-gray-400">Your one-stop destination for trendy fashion and accessories. Discover the latest styles and elevate your wardrobe.</p>
+          <div class="mt-4">
+            <a href="https://himanshi0907.github.io/E-commerce-website-frontend/" target="_blank" class="inline-flex items-center text-pink-400 hover:text-pink-300">
+              <i data-lucide="github" class="w-5 h-5 mr-2"></i>
+              View Live on GitHub Pages
+            </a>
           </div>
-          <p class="mt-3 text-sm text-gray-600">Timeless fashion for the modern era. Crafted for comfort, designed for
-            confidence.</p>
-          <p class="mt-2 text-sm text-gray-600">Free shipping, easy returns, and secure checkout.</p>
         </div>
         <div>
-          <h4 class="font-semibold">Explore</h4>
-          <ul class="mt-3 space-y-2 text-sm text-gray-700">
-            <li><a class="hover:text-sky-600" href="./shop.html">Shop</a></li>
-            <li><a class="hover:text-sky-600" href="./about.html">About</a></li>
-            <li><a class="hover:text-sky-600" href="./blog.html">Blog</a></li>
-            <li><a class="hover:text-sky-600" href="./contact.html">Contact</a></li>
+          <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+          <ul class="space-y-2">
+            <li><a href="./index.html" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+            <li><a href="./shop.html" class="text-gray-400 hover:text-white transition-colors">Shop</a></li>
+            <li><a href="./about.html" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+            <li><a href="./blog.html" class="text-gray-400 hover:text-white transition-colors">Blog</a></li>
+            <li><a href="./contact.html" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
           </ul>
         </div>
         <div>
-          <h4 class="font-semibold">Store Info</h4>
-          <ul class="mt-3 space-y-2 text-sm text-gray-700">
-            <li>Support: support@outfitwaves.example</li>
-            <li>Hours: Mon–Sat, 9am–7pm</li>
-            <li>Location: Mumbai, IN</li>
+          <h4 class="text-lg font-semibold mb-4">Contact Us</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li class="flex items-start">
+              <i data-lucide="mail" class="w-5 h-5 mr-2 mt-0.5 flex-shrink-0"></i>
+              <span>contact@outfitwaves.com</span>
+            </li>
+            <li class="flex items-start">
+              <i data-lucide="phone" class="w-5 h-5 mr-2 mt-0.5 flex-shrink-0"></i>
+              <span>+91 98765 43210</span>
+            </li>
           </ul>
         </div>
       </div>
-      <div class="mt-8 pt-8 border-t text-sm text-gray-600 flex items-center justify-between">
-        <p>© <span id="year"></span> The Outfitwaves. All rights reserved.</p>
-        <div class="flex items-center gap-4">
-          <a href="#" class="hover:text-pink-600">Privacy</a>
-          <a href="#" class="hover:text-pink-600">Terms</a>
-        </div>
+      <div class="border-t border-gray-800 mt-8 pt-6 text-center text-gray-500 text-sm">
+        <p>© 2023 The Outfitwaves. All rights reserved.</p>
       </div>
     </div>
   </footer>
-
-  <script src="./assets/js/main.js"></script>
+  
   <script>
-    (function () {
-      var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      // Animated counters
-      var nums = Array.from(document.querySelectorAll('[data-count], [data-count-float]'));
-      if (nums.length) {
-        var io = new IntersectionObserver(function (entries) {
-          entries.forEach(function (en) {
-            if (!en.isIntersecting) return; var el = en.target; io.unobserve(el);
-            var isFloat = el.hasAttribute('data-count-float');
-            var target = isFloat ? parseFloat(el.getAttribute('data-count-float')) : parseInt(el.getAttribute('data-count') || '0', 10);
-            if (prefersReduced) { el.textContent = isFloat ? target.toFixed(1) : target.toLocaleString('en-IN'); return; }
-            var start = performance.now(); var dur = 1800;
-            function tick(now) {
-              var t = Math.min(1, (now - start) / dur);
-              var eased = t < .5 ? 2 * t * t : -1 + (4 - 2 * t) * t; // easeInOutQuad
-              var val = target * eased;
-              el.textContent = isFloat ? val.toFixed(1) : Math.round(val).toLocaleString('en-IN');
-              if (t < 1) requestAnimationFrame(tick);
-            }
-            requestAnimationFrame(tick);
-          });
-        }, { threshold: 0.3 });
-        nums.forEach(function (n) { io.observe(n); });
+    // Initialize Lucide Icons in the footer
+    document.addEventListener('DOMContentLoaded', function() {
+      if (window.lucide) {
+        lucide.createIcons();
       }
-      // 3D tilt on hover
-      if (!prefersReduced) {
-        Array.from(document.querySelectorAll('[data-tilt]')).forEach(function (card) {
-          var max = 4; // deg
-          var shadowOn = card.classList.contains('hover:shadow-lg');
-          function handle(ev) {
-            var r = card.getBoundingClientRect();
-            var px = (ev.clientX - r.left) / r.width; var py = (ev.clientY - r.top) / r.height;
-            var rx = (py - 0.5) * -2 * max; var ry = (px - 0.5) * 2 * max;
-            card.style.transform = 'perspective(800px) rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg)';
-          }
-          function reset() { card.style.transform = 'perspective(800px) rotateX(0) rotateY(0)'; }
-          card.addEventListener('mousemove', handle);
-          card.addEventListener('mouseleave', reset);
-        });
-      }
-      // Sticky subnav highlighting
-      (function () {
-        var links = Array.from(document.querySelectorAll('#about-subnav .subnav-link'));
-        var map = { story: document.getElementById('story'), values: document.getElementById('values'), team: document.getElementById('team') };
-        if (!links.length) return;
-        var byId = {}; links.forEach(function (a) { var id = a.getAttribute('href').replace('#', ''); byId[id] = a; });
-        var io = new IntersectionObserver(function (entries) {
-          entries.forEach(function (en) { if (!en.isIntersecting) return; var id = en.target.id; links.forEach(function (a) { a.classList.remove('text-sky-700', 'font-semibold', 'bg-sky-50'); }); var active = byId[id]; if (active) { active.classList.add('text-sky-700', 'font-semibold', 'bg-sky-50'); } });
-        }, { rootMargin: '-40% 0px -50% 0px', threshold: 0.01 });
-        Object.values(map).forEach(function (sec) { if (sec) io.observe(sec); });
-      })();
-
-      // Why I Started modal wiring
-      (function(){
-        var btn = document.getElementById('why-btn');
-        var modal = document.getElementById('founder-modal');
-        if(!btn || !modal) return;
-        var overlay = document.getElementById('founder-overlay');
-        var closeBtn = document.getElementById('founder-close');
-        var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        function open(){
-          // show and slide in
-          modal.classList.remove('hidden');
-          modal.classList.add('open');
-          // lock background scroll
-          document.body.style.overflow = 'hidden';
-          // restart any entrance anims for inner elements
-          var box = modal.querySelector('.modal-animate');
-          if(box){ box.classList.remove('modal-animate'); void box.offsetWidth; box.classList.add('modal-animate'); }
-          // stagger paragraphs
-          var paras = modal.querySelectorAll('.story-para');
-          var delay = 120;
-          paras.forEach(function(p, i){
-            if(prefersReduced){ p.style.opacity = 1; return; }
-            p.style.animation = 'para-in 380ms '+(i*delay)+'ms ease-out forwards';
-          });
-          if(window.lucide) window.lucide.createIcons();
-        }
-        function close(){
-          // reset paras
-          var paras = modal.querySelectorAll('.story-para');
-          paras.forEach(function(p){ p.style.animation = ''; p.style.opacity = prefersReduced?1:0; });
-          modal.classList.remove('open');
-          // wait for slide-out then hide and unlock scroll
-          setTimeout(function(){ modal.classList.add('hidden'); document.body.style.overflow=''; }, 300);
-        }
-        btn.addEventListener('click', open);
-        if(overlay) overlay.addEventListener('click', close);
-        if(closeBtn) closeBtn.addEventListener('click', close);
-        document.addEventListener('keydown', function(e){ if(e.key==='Escape' && !modal.classList.contains('hidden')) close(); });
-      })();
-
-      // Testimonials auto-rotate (5s, pause on hover)
-      (function(){
-        var wrap = document.getElementById('t-wrap'); if(!wrap) return;
-        var items = Array.from(wrap.querySelectorAll('.t-item')); if(items.length<2) return;
-        var i = 0, timer = null, hovering = false, dur = 5000;
-        function show(n){ items.forEach(function(el, idx){ if(idx===n){ el.classList.remove('hidden'); el.style.opacity=1; } else { el.classList.add('hidden'); el.style.opacity=0; } }); }
-        function next(){ i = (i+1)%items.length; show(i); }
-        function start(){ if(timer) return; timer = setInterval(function(){ if(!hovering) next(); }, dur); }
-        function stop(){ if(timer){ clearInterval(timer); timer=null; } }
-        wrap.addEventListener('mouseenter', function(){ hovering=true; });
-        wrap.addEventListener('mouseleave', function(){ hovering=false; });
-        show(0); start();
-      })();
-    })();
+    });
   </script>
 </body>
 
